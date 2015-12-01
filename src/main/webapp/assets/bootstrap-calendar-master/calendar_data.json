@@ -1,0 +1,273 @@
+[{
+	"_id":"e6dd1a61-de44-468d-8c98-2dfa27063e5f",
+	"start":"1394613745000",
+	"end":"1415176945000",
+	"eventType":"treatment",
+	"disease":{
+		"_id":"1b2bba85-ec73-4e6a-bb55-21926605e28c",
+		"name":"Flu"
+	},
+	"treatment":{
+		"_id":"a6488e37-d312-421f-a548-58d4ea9bbae2",
+		"name":"Aspirin"
+	},
+	"category":{
+	},
+	"dose":300,
+	"unit":"mg",
+	"type":"Tablette"
+},
+{
+	"_id":"e6dd1a61-de44-468d-8c98-2dfa27063e5f",
+	"start":"1388602800000",
+	"end":"1388602800000",
+	"eventType":"note",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"title":"My Title 1",
+	"text":"Hallo World 1"
+},
+{
+	"_id":"b78b5543-bcd1-492a-872d-f17db47e6a48",
+	"start":1394213021502,
+	"end":1394213021502,
+	"eventType":"note",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"title":"My Title 2",
+	"text":"Hallo World 2"
+},
+{
+	"_id":"027b07f7-4b6c-4998-9679-aed1260e7892",
+	"start":1394413021502,
+	"end":1394413021502,
+	"eventType":"vote",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"reviewId":"def22056-2e87-43e4-96ca-66e3a6ba600e"
+},
+{
+	"_id":"2c3ed457-db31-4708-ba80-f6d601a0bbac",
+	"start":1394613021502,
+	"end":1394613021502,
+	"eventType":"review",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"disease":{
+		"_id":"1b2bba85-ec73-4e6a-bb55-21926605e28c",
+		"name":"Flu"
+	},
+	"treatment":{
+		"_id":"a6488e37-d312-421f-a548-58d4ea9bbae2",
+		"name":"Aspirin"
+	},
+	"rating":0.8,
+	"reviewId":"def22056-2e87-43e4-96ca-66e3a6ba600e"
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1389767467000,
+	"end":1389767467000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":90
+	},
+	"weight":88.5
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1392445867000,
+	"end":1392445867000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":88.5
+	},
+	"weight":86.5
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1394865067000,
+	"end":1394865067000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":86.5
+	},
+	"weight":82.0
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1397543467000,
+	"end":1397543467000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":82
+	},
+	"weight":83
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1400135467000,
+	"end":1400135467000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":83
+	},
+	"weight":85
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1402813867000,
+	"end":1402813867000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":85
+	},
+	"weight":82.5
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1405405867000,
+	"end":1405405867000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":82.5
+	},
+	"weight":82
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1408084267000,
+	"end":1408084267000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":82
+	},
+	"weight":81
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1410762667000,
+	"end":1410762667000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":81
+	},
+	"weight":79.5
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1413354667000,
+	"end":1413354667000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":79.5
+	},
+	"weight":78
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1416033067000,
+	"end":1416033067000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":78
+	},
+	"weight":80
+},
+{
+	"_id":"bd890706-1d9d-4d68-b66b-921ef160d810",
+	"start":1418625067000,
+	"end":1418625067000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":80
+	},
+	"weight":79
+},
+{
+	"_id":"e6dd1a61-de44-468d-8c98-2dfa27063e5f",
+	"start":"1388602800000",
+	"end":"1388602800000",
+	"eventType":"note",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"title":"My Title 1",
+	"text":"Hallo World 1"
+},
+{
+	"_id":"b78b5543-bcd1-492a-872d-f17db47e6a48",
+	"start":1395839345000,
+	"end":1395839345000,
+	"eventType":"note",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"title":"My Title 2",
+	"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+},
+{
+	"_id":"027b07f7-4b6c-4998-9679-aed1260e7892",
+	"start":1395839345000,
+	"end":1395839345000,
+	"eventType":"vote",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"reviewId":"def22056-2e87-43e4-96ca-66e3a6ba600e"
+},
+{
+	"_id":"2c3ed457-db31-4708-ba80-f6d601a0bbac",
+	"start":1395839345000,
+	"end":1395839345000,
+	"eventType":"review",
+	"user":{
+		"_id":"56934b7b-7e43-40da-a9b9-7a787057a2de",
+		"name":"Peter Novak"
+	},
+	"disease":{
+		"_id":"1b2bba85-ec73-4e6a-bb55-21926605e28c",
+		"name":"Flu"
+	},
+	"treatment":{
+		"_id":"a6488e37-d312-421f-a548-58d4ea9bbae2",
+		"name":"Aspirin"
+	},
+	"rating":0.8,
+	"reviewId":"def22056-2e87-43e4-96ca-66e3a6ba600e"
+},
+{
+	"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+	"start":1395839345000,
+	"end":1395839345000,
+	"eventType":"weight",
+	"previousWeight":{
+		"_id":"64e85519-b337-4e79-a504-b02e3e0197fa",
+		"weight":90
+	},
+	"weight":88.5
+}]
+]

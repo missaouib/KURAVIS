@@ -1,0 +1,80 @@
+#*******************************************************************************
+ * Copyright 2015 MobileMan GmbH
+ * www.mobileman.com
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************#
+
+<html>
+#parse( "email-header.vm" )
+<body>
+<div class="content">
+	<table class="tableBackground" width="100%">
+		<tr>
+			<td>
+				<div class="logo"></div>
+			</td>
+		</tr>
+	</table>
+	<div style="padding: 30px;">
+		<table>
+			<tr>
+				<td>
+					<div class="title">KURAVIS Neuigkeiten f&uuml;r ${user.name}.</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="normalText">
+						<br />
+						Hallo ${user.name}
+						
+						<table>
+							#if ($data["comment"])
+							<tr>
+								<td>
+									W&ouml;chentliche Aktualisierung von Kommentaren: $data["comment"]
+								</td>
+							</tr>
+							</br>
+							</br>
+							#end
+							#if ($data["vote"])
+							<tr>
+								<td>
+									W&ouml;chentliche Aktualisierung &uuml;ber erhaltene AVIS Herzen: $data["vote"]
+								</td>
+							</tr>
+							#end
+						</table>
+						<br />
+						<a href="https://${dns_server_name}/Nutzer/${user.get_id()}"><button class="btn btn-sm btn-default"><b>PROFILE</b></button></a>
+						<br />
+						<br />
+						<br /><br />
+						Vivi, die elektronische Brieftaube    
+						<br />
+						<br />
+					</div>
+					<a href="https://${dns_server_name}/settings"><button class="btn btn-sm btn-default"><b>Unsubscribe</b></button></a>
+					<br />
+					<br />
+					#parse( "email-social.vm" )
+			  </td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	#parse( "email-footer.vm" )
+</body>
+</html>

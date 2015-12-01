@@ -1,0 +1,569 @@
+/*******************************************************************************
+ * Copyright 2015 MobileMan GmbH
+ * www.mobileman.com
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+ 
+ /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        /* The html and body elements cannot have any padding or margin. */
+        font-family: Kuravis, Verdana, sans-serif
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        /* Negative indent footer by it's height */
+        margin: 0 auto 0px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+      }
+      
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+        }
+      }
+
+
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      #wrap > .container, #wrap > .dummyContainer {
+        padding-top: 50px;
+      }
+
+      .container .credit {
+        padding: 0;
+        width: 100%;
+      }
+
+      code {
+        font-size: 80%;
+      }
+
+
+
+.hdr
+{
+	margin-top: 29px;
+}
+
+.box
+{
+	border: 1px solid #808080;
+	width: 30px;
+}
+
+.startLogo
+{
+	background-image: url(../assets/images/kuravis_hp2.jpg);  
+	
+	background-position: center top; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+ /*	
+@media (max-width: 990px) {
+	.startLogo
+	{
+		background-size: 990px 660px;
+	}
+}
+
+@media (min-width: 991px) {
+	.startLogo
+	{
+		background-size: 100% 660px;
+	}
+}
+*/
+
+.signedOutBg
+{
+	background-image: url(../assets/images/signout.jpg);  
+	/*background-position: center bottom;
+	background-size: 100% 100%;
+	background-repeat:no-repeat;
+	background-origin: padding-box;*/
+	background-position: center top; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.startpage {
+	color: #fff;
+	text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);
+}
+
+.startpage p {
+    font-size: 34px;
+    font-weight: 200;
+    line-height: 1.25;
+}
+
+.startpage h1 {
+    font-size: 120px;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+.top-row {
+	height: 500px;
+}
+
+.top-row-min {
+	height: 500px;
+}
+
+.treatment-header {
+	position: fixed;
+    top: 65;
+    z-index: 1001;
+	height: 500px;
+	background-color: #f8f8f8;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.min {
+	height: 125px;
+}
+
+
+
+
+.sort-group {
+	padding: 10px 0 10px 0;
+}
+
+.lightgreybackground {
+    background-color: #f7f7f7;
+}
+
+.roundedBorder {
+    background: white;
+    border: 1px double #DDD;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #333;
+    color: #666;
+    float: center;
+    padding: 5px 10px;
+    width: 40px;
+    alignment-baseline: center;
+    outline: none;
+    text-align: center;
+}
+
+#counter span.warning { 
+	color: #b66875; 
+}
+
+
+
+.rating_box {
+	font-size: 36px;
+	background: gray;
+	color: white;
+	padding: 30px;
+	alignment-baseline: center;
+    outline: none;
+    text-align: center;
+}
+
+.gender_button {
+	width: 100px;
+	height: 100px;
+	background: gray;
+	color: white;
+	padding: 30px;
+	alignment-baseline: center;
+    outline: none;
+    text-align: center;
+}
+
+.semitransparent {
+	zoom: 1;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.center
+{
+  margin: 0 auto !important;
+  float: none !important;
+}
+
+.users-gridRemoveMe {
+	margin-top: 20px;
+}
+
+.show-grid {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.users-gridRemoveMe [class*="span"]:first-child {
+    margin: 20px;
+}
+
+.users-gridRemoveMe [class*="span"] {
+	margin: 20px;
+}
+
+.user-header {
+	position: fixed;
+	top: 60px;
+	//height: 100px;
+	background-color: #e8e8e8;	
+}
+
+.historyScroll {
+  width:100%;
+  max-height: 300px;
+  overflow-y:scroll;
+}
+
+
+
+section {
+	padding: 30px 0 0 0;
+}
+
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 100%; 
+    height: 600px;
+}
+.diseaseStates {
+}
+	
+.diseaseState {
+	color: #ccc;	
+	padding: 10px;
+	background-color: #e8e8e8;
+	width: 100px;
+	float: left;
+}
+
+.diseaseStateCured {
+	color: white;
+	background-color: green;
+}
+
+.diseaseStateInTherapy {
+	color: white;
+	background-color: red;
+}
+
+.unreaded {
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	color: white;
+	text-align: center;
+	display:block;
+}
+
+#noti_container {
+    position:relative;
+}
+.noti_bubble {
+    position:absolute;
+    top: -6px;
+    right:-6px;
+    padding:0 8px 0 8px;
+    background-color:red;
+    color:white;
+    border-radius:30px;
+}
+
+.kuravisVersionHeader {
+	color: #FFFFFF;
+	font-family: SourceSansProRegular; 
+  	font-size: 11px;	
+  	letter-spacing:1px;
+	float:left;
+	padding-top: 17px;
+}
+
+.btn-kuravis {
+  background-color: hsl(0, 100%, 82%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fecccc", endColorstr="#fea3a3");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fecccc), to(#fea3a3));
+  background-image: -moz-linear-gradient(top, #fecccc, #fea3a3);
+  background-image: -ms-linear-gradient(top, #fecccc, #fea3a3);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fecccc), color-stop(100%, #fea3a3));
+  background-image: -webkit-linear-gradient(top, #fecccc, #fea3a3);
+  background-image: -o-linear-gradient(top, #fecccc, #fea3a3);
+  background-image: linear-gradient(#fecccc, #fea3a3);
+  border-color: #fea3a3 #fea3a3 hsl(0, 100%, 80%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.13);
+  -webkit-font-smoothing: antialiased;
+}
+
+.makePointer{
+	cursor: pointer;	
+}
+
+.mainPageInput {	
+	display: block;
+	width: 100%;
+    height: 100%;
+	background: url('../assets/images/lupe.png')  99% center no-repeat; -2px 2px;
+}
+
+.breadcrumb {
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 0px;
+  font-size: 10pt;
+}
+
+.breadcrumb > li {
+	display: inline-block;
+	cursor: pointer;
+}
+
+.breadcrumb > li + li:before {
+	padding: 0 7px;
+	margin-right: 3px;
+	color: #c4bdbc;
+	content: " \00A0 " !important;
+	background-image: url(../assets/images/arrowBreadcrumb.png);
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+
+.breadcrumb > .active {
+  color: #999999;
+  cursor: inherit;
+}
+
+.menu-item-like-a{
+	color: #FFFFFF !important;
+    height: 20px;
+    line-height: 20px;
+    margin: 15px 0 15px 15px;
+    padding: 0;
+    text-shadow: none !important;
+}
+
+a {color: black;}
+a:hover, a:focus {color: black;}
+
+.ratingTextKuravis, .ratingTextKuravisBig {
+    color: #D24E43;
+    font-family: SourceSansProRegular;
+    font-size: 14px;
+}
+.ratingTextKuravisLight {
+	color: #D24E43;
+	font-size: 14px;
+    font-family: SourceSansProExtraLight;
+}
+
+@media (max-width: 991px){
+	.ratingTextKuravisLight {
+		display: none;
+	}
+}
+	
+.ratingTextKuravisBig {
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.section .select2-choice {
+	background-color: #FFFFFF;
+}
+
+.section .searchbar {
+	background-color: #FFFFFF;
+}
+
+.section .select2-container .select2-choice {
+	background-color: #FFFFFF;
+	border:1px solid #d8d3d3;	
+}
+
+/* menu header */
+.dropdown .dropdown-toggle {
+	background-color: transparent;
+	transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+}
+
+.dropdown.open .dropdown-toggle {
+	background-color: transparent;
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transition: all 0.145s ease-out 0s;
+} 
+
+.icon-bar2 {
+	background: none repeat scroll 0 0 #fff;
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin-bottom: 7px;
+    border-radius: 0;
+}
+
+/* menu header end */
+.buttonEventCreate{
+	border: 2px solid #E0E0E0; 
+	margin-bottom: 10px;
+	padding-left: 10px;
+	padding-top:5px;
+	padding-bottom:5px;
+	cursor: pointer;
+}
+
+.drop-box {
+	background: #F8F8F8;
+	border: 2px dashed #DDD;
+	width: 400px;
+	height: 65px; 
+	text-align: center;
+	padding-top: 35px; 
+}
+
+.drop-box.dragover {
+	border: 5px dashed blue;
+}
+
+.angucomplete-holder {
+    position: relative;
+}
+
+.angucomplete-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    width: 250px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    /*top: 32px;
+    left: 0px;
+    */
+    margin-top: -6px;
+    background-color: #ffffff;
+}
+
+.angucomplete-searching {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.angucomplete-description {
+    font-size: 14px;
+}
+
+.angucomplete-row {
+    padding: 5px;
+    color: #000000;
+    margin-bottom: 4px;
+
+}
+
+.angucomplete-selected-row, .angucomplete-row:hover {
+    background-color: lightblue;
+    color: #ffffff;
+}
+
+.angucomplete-image-holder {
+    padding-top: 2px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.angucomplete-image {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border-color: #ececec;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.angucomplete-image-default {
+    /* Add your own default image here
+     background-image: url('/assets/default.png');
+    */
+    background-position: center;
+    background-size: contain;
+    height: 34px;
+    width: 34px;
+}
+
+.start_wrap{
+	position: relative;
+	left:0;
+	top:0;
+}
+
+.next_section_down{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	height: 20px;
+	width:100%;
+	text-align: center;	
+}
+
+.start_title{
+	padding-top: 70px; text-align: left;
+	font-size: xx-large;
+}
+
+.start_subtitle{
+	padding-top: 20px; padding-bottom: 50px; text-align: left;
+	font-size: x-large;
+	color:#444;
+}
+
+#searchHeader .title {
+	font-size: xx-large;
+	padding-top: 20px;
+}
+#searchHeader .subtitle {
+	font-size: x-large;
+	color: #444;
+	padding-bottom: 32px;
+}

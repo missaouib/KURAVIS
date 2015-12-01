@@ -1,0 +1,402 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="richSnippet">
+  <div itemscope itemtype="http://data-vocabulary.org/Review">
+    <span itemprop="itemreviewed">{{review.disease.name | uppercase}} > {{review.treatment.name  | urlEncode}} > {{review.author.name}}</span>
+    <span itemprop="reviewer">{{author.name}}</span>
+    <time itemprop="dtreviewed">{{review.createdOn | toLocaleDateString}}</time>.
+    <span itemprop="summary">{{review.author.name}}'s Bewertung {{review.disease.name | uppercase}} {{review.treatment.name  | urlEncode}}</span>
+    <span itemprop="description">{{review.text}}</span>
+    <span itemprop="rating">
+    	<meta itemprop="best" content="1"/>  
+      	<meta itemprop="worst" content="6"/>
+      	{{review.rating | ratingSingleValue}}
+     </span>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li><a href="/{{review.disease.name  | urlEncode}}">{{review.disease.name | uppercase}}</a></li>
+  <li><a href="/{{review.disease.name | urlEncode}}/{{review.treatment.name  | urlEncode}}">{{review.treatment.name}}</a></li>
+  <li class="active">{{review.author.name}}'s Bewertung</li>
+</ol>
+
+<!--  <shared-disease-component></shared-disease-component>  -->
+<div class="row">
+	<div class="col-sm-10 col-md-10 title">Bewertung für {{review.disease.name}} - {{review.treatment.name}}</div>
+	<div class="hidden-xs">
+		<div class="col-sm-2 col-md-2" style="padding-top:5px">	
+			<button id="doReviewBtn" class="btn btn-xs pull-right btn-icon-chevron-right" ng-click="doMakeReview()" ng-show="buttonText">{{buttonText}}</button>
+		</div>
+	</div>
+</div>
+<div class="visible-xs">
+	<div class="row">
+	<div class="col-xs-6 col-sm-6">
+		<kur-rating value="{{review.rating}}" />
+	</div>
+	<div class="col-xs-6 col-sm-6">
+		<button id="doReviewBtn" class="btn btn-xs pull-right btn-icon-chevron-right" ng-click="doMakeReview()" ng-show="buttonText">{{buttonText}}</button>
+	</div>
+	</div>
+</div>
+<div class="hidden-xs">
+	<div class="row">
+	<div class="col-md-12">
+		<table width="100%">
+			<tr>
+				<td nowrap="nowrap" width="40px">
+					<a class="pull-left" href="/Nutzer/{{author._id}}" style="text-decoration: none;">
+					<ng-avatar class="pull-left" ng-href="/Nutzer/{{author._id}}" color="{{author.settings.profile.avatarColor}}" name="{{author.name.substring(0,1)}}"></ng-avatar>
+					</a>
+				</td>
+				<td class="padding10" valign="center">
+					<div class="userheadertitle"><a href="/Nutzer/{{author._id}}">{{author.name}}</a></div>
+					<div class="details">
+						<span ng-show="author.yearOfBirth">{{author.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="((!((author.gender == null) || (author.gender == 'unknown') || (author.gender == ''))) && (author.yearOfBirth == null))">{{author.gender | formatGender}}</span><span ng-show="((!((author.gender == null) || (author.gender == 'unknown') || (author.gender == ''))) && (author.yearOfBirth != null))">, {{author.gender | formatGender}}</span>
+						<span ng-show="author.location"> aus {{author.location}}</span>
+					</div>
+				</td>
+				<td>
+					<div class="pull-right"><kur-rating value="{{review.rating}}" /></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</div>
+</div>
+<div class="visible-xs">
+	<div class="row">
+	<div class="col-xs-12">
+		<table width="100%">
+			<tr>
+				<td nowrap="nowrap" width="40px">
+					<a class="pull-left" href="/Nutzer/{{author._id}}" style="text-decoration: none;">
+					<ng-avatar class="pull-left" ng-href="/Nutzer/{{author._id}}" color="{{author.settings.profile.avatarColor}}" name="{{author.name.substring(0,1)}}"></ng-avatar>
+					</a>
+				</td>
+				<td class="padding10" valign="center">
+					<div class="userheadertitle"><a href="/Nutzer/{{author._id}}">{{author.name}}</a></div>
+					<div class="details">
+						<span ng-show="author.yearOfBirth">{{author.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="((!((author.gender == null) || (author.gender == 'unknown') || (author.gender == ''))) && (author.yearOfBirth == null))">{{author.gender | formatGender}}</span><span ng-show="((!((author.gender == null) || (author.gender == 'unknown') || (author.gender == ''))) && (author.yearOfBirth != null))">, {{author.gender | formatGender}}</span>
+						<span ng-show="author.location"> aus {{author.location}}</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</div>
+</div>
+<div class="staticPopover bottom" style="width: 100%;margin-top:4px;">
+	<div class="popover-content reviewCommentSubtitleText">
+		<div class="row">
+			<pre class="col-xs-12 col-md-11">{{review.text || 'Nicht bewertet'}}</pre>
+			<div class="col-xs-12 col-md-1">
+				<ng-active-votes-count class="pull-right" value="{{votesCount || 0}}"
+					url-prefix="{{urlPrefix}}" review-id="{{review._id}}"
+					votescount="{{userVotedForCurrentReview}}" vote="vote()"></ng-active-votes-count>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-reviewtext text="" subtitle="Bewertung wurde verfasst am {{review.createdOn | toLocaleDateString}}" report="reportReview(review._id)"></ng-reviewtext>
+
+<div class="reviewTable">
+	<table class="fullWidth" ng-show="review.dateOfFirstSymptoms || review.dateOfDiagnosis || review.cured">
+	<thead>
+		<tr>
+			<td width="30%">
+				<div class="reviewCommentTitleText">Gesundheitsanliegen</div>
+			</td>
+			<td>
+				<div class="reviewCommentTitleText">{{review.disease.name}}</div>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-show="review.dateOfFirstSymptoms">
+			<td>
+				Datum der ersten Symptome
+			</td>
+			<td>
+				{{review.dateOfFirstSymptoms | toLocaleDateString}}
+			</td>
+		</tr>
+		<tr ng-show="review.dateOfDiagnosis">
+			<td>
+				Datum der Diagnose
+			</td>
+			<td>
+				{{review.dateOfDiagnosis | toLocaleDateString}}
+			</td>
+		</tr>
+		<tr ng-show="review.cured">
+			<td>
+				Aktueller Status
+			</td>
+			<td>
+				{{review.cured | curedStateLocalization}}
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<div ng-show="review.dateOfFirstSymptoms || review.dateOfDiagnosis || review.cured">
+		&nbsp;
+	</div>
+	
+	<div ng-repeat="selectedTreatmentEvent in treatmentEvents" >
+
+		<table class="fullWidth" ng-show="selectedTreatmentEvent.category">
+		<thead>
+			<tr>
+				<td width="30%">
+					<div class="reviewCommentTitleText">Behandlung</div>
+				</td>
+				<td>
+					<div class="reviewCommentTitleText">{{review.treatment.name}}</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-show="selectedTreatmentEvent.category">
+				<td>
+					Kategorie
+				</td>
+				<td>
+					{{selectedTreatmentEvent.category}}
+				</td>
+			</tr>
+			<tr ng-show="selectedTreatmentEvent.frequency">
+				<td>
+					Häufigkeit
+				</td>
+				<td>
+					{{selectedTreatmentEvent.frequency}}
+				</td>
+			</tr>
+
+			<tr ng-show="selectedTreatmentEvent.quantity">
+				<td>
+					Menge
+				</td>
+				<td>
+					{{selectedTreatmentEvent.quantity}} {{selectedTreatmentEvent.type.name}}
+				</td>
+			</tr>
+			<tr ng-show="selectedTreatmentEvent.dose">
+				<td>
+					Dosis
+				</td>
+				<td>
+					{{selectedTreatmentEvent.dose}} {{selectedTreatmentEvent.unit.name}} 
+				</td>
+			</tr>
+			<tr ng-show="selectedTreatmentEvent.start">
+				<td>
+					<span ng-show="selectedTreatmentEvent.end">Beginn der Behandlung</span>
+					<span ng-show="!selectedTreatmentEvent.end">Datum</span>
+				</td>
+				<td>
+					{{selectedTreatmentEvent.start | toLocaleDateString}}
+				</td>
+			</tr>
+			<tr ng-show="selectedTreatmentEvent.end">
+				<td>
+					Ende der Behandlung
+				</td>
+				<td>
+					{{selectedTreatmentEvent.end | toLocaleDateString}}
+				</td>
+			</tr>			
+			<tr ng-show="selectedTreatmentEvent.text">
+				<td>
+					Zusatztext
+				</td>
+				<td>
+					{{selectedTreatmentEvent.text}}
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		<div ng-show="selectedTreatmentEvent.category">
+			&nbsp;
+		</div>
+	</div>	
+	<table class="fullWidth" ng-show="review.treatmentPrice || review.doctorCosts">
+	<thead>
+		<tr>
+			<td width="30%">
+				<div class="reviewCommentTitleText">Kosten</div>
+			</td>
+			<td>
+				<div class="reviewCommentTitleText">{{(review.treatmentQuantity * review.treatmentPrice) + review.doctorCosts}}  {{review.currency}}</div>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-show="review.doctorCosts">
+			<td>
+				davon Arzt
+			</td>
+			<td>
+				{{review.doctorCosts}} {{review.currency}}
+			</td>
+		</tr>
+		<tr ng-show="review.treatmentQuantity">
+			<td>
+				davon Behandlung
+			</td>
+			<td>
+				{{review.treatmentQuantity * review.treatmentPrice}} {{review.currency}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				 Versicherungsleistung
+			</td>
+			<td>
+				<input type="checkbox" id="insuredStateId" ng-model="review.insuranceCovered" disabled>
+			</td>
+		</tr>	
+		<tr ng-show="review.insuranceCoverage && review.insuranceCovered">
+			<td>
+				Erstattungsfähig
+			</td>
+			<td>
+				{{review.insuranceCoverage}} {{review.currency}}
+			</td>
+		</tr>
+		<tr ng-show="review.coinsurance && review.insuranceCovered">
+			<td>
+				Selbstbeteiligung
+			</td>
+			<td>
+				{{review.coinsurance}} {{review.currency}}
+			</td>
+		</tr>		
+	</tbody>
+	</table>
+	
+	
+	<div ng-show="review.sideEffects">
+		&nbsp;
+	</div>
+	<table class="fullWidth" ng-show="review.sideEffects">
+	<thead>
+		<tr>
+			<td width="30%">
+				<div class="reviewCommentTitleText">Nebenwirkungen</div>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</thead>
+	</table>
+</div>
+<ng-severity side-Effects="review.sideEffects" remove-Enabled="false" editable="false" size="100"></ng-severity>		
+
+<div class="section" style="margin-top:40px">
+	<div class="sectiontitle">{{reviewCommentsCount ?  reviewCommentsCount : 0}} {{reviewCommentsCount | formatNumberToStringWithE:'Kommentar'}}</div>
+	
+		<table class="table-events" width="100%" infinite-scroll='userEventsNextPage()' infinite-scroll-disabled='userEventsBusy' infinite-scroll-distance='1'>
+			<tr class="verticalAlignMiddle">
+				<td colspan="2">
+					<div class="media">
+						<span ng-switch on="userLogged != null">
+	    					<span ng-switch-when="true">
+		   						<a class="pull-left hidden-xs" href="/Nutzer/{{userLogged._id}}" ng-show="userLogged">
+		    						<ng-avatar-small class="padding5" color="{{userLogged.avatarColor}}" name="{{userLogged.name.substring(0,1)}}" align="left"> </ng-avatar-small>
+		  						</a>
+	    					</span>
+	    					<span ng-switch-when="false">
+	    					  <span class="hidden-xs pull-left">
+    							<ng-avatar-small class="padding5" color=#FFFFFF name="" align="left"> </ng-avatar-small>
+    						  </span>
+	    					</span>
+						</span>
+	  						<div class="media-body">
+     							<textarea  style="margin:5px 5px 5px 0px" class="commemnttextarea" id="reviewtextarea" placeholder="Diskutieren Sie mit" data-ng-model="modalText" ng-enter="modalTextConfirmed()"></textarea>
+	  						</div>
+	  						
+					</div>
+				</td>
+			</tr>
+			<tr data-ng-repeat="event in userEvents track by event._id" >
+				<td>
+					<div class="media">
+  						<a class="hidden-xs pull-left" href="/Nutzer/{{event.user._id}}">
+    						<ng-avatar-small class="padding5" color="{{event.user.settings.profile.avatarColor}}" name="{{event.user.name.substring(0,1)}}"></ng-avatar-small>
+  						</a>
+  						<div class="media-body">
+    						<div class="media-heading, reviewCommentTitleText">{{event.user.name}} {{event.user.yearOfBirth | getAgeFromYear | formatAgeAndGender:event.user.gender}} </div>
+    						<span class="reviewCommentSubtitleText">{{event.text}}</span>    
+  						</div>
+					</div>
+				</td>				
+				<td width="10px">
+					<a class="muted" data-ng-click="showReportModalView(event._id, 'Melden Sie bitte verdächtige Kommentare und helfen Sie uns, die Qualit&auml;t bei KURAVIS sicherzustellen. Für die Zusammenarbeit danken wir Ihnen im Voraus bestens.', 'treatmentreviewcomment', event.text, event.user._id, event.user.name, 'diesen Kommentar')" style="cursor: pointer;color:gray" data-ng-show="event.user._id != userLogged.id"><img title="Melden" src="/assets/images/reportIcon.png"></a>
+				</td>
+			</tr>
+		</table>
+</div>
+		
+<div id="showModalText" modal="showingModalText" class="modal fade">
+  <div class="modal-dialog">
+  	<div class="modal-content">  	
+		<div class="modal-body">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="showingModalText=false">&times;</button>
+			<div class="title">
+				Warum möchten Sie {{reportingItemLocalizedString}} melden?
+			</div>
+			<input type="radio" ng-model="reportType" value="1"> {{'1' | localizedReportReason}}<br>
+			<input type="radio" ng-model="reportType" value="2" checked> {{'2' | localizedReportReason}}<br>
+			<input type="radio" ng-model="reportType" value="3"> {{'3' | localizedReportReason}}<br>
+			<input type="radio" ng-model="reportType" value="4"> {{'4' | localizedReportReason}}<br>
+			<br>
+   				<input type="text" ng-show="reportType == '4'" class="signInput" data-ng-model="reportModalText" maxlength="50"/>
+   				 {{modalTextTitle}}
+		</div>
+  		<div class="modal-footer">
+    		<button class="btn btn-default" data-ng-click="showingModalText=false">Schliessen</button>
+    		<button class="btn btn-primary" ng-disabled="!reportType" data-ng-click="modalTextConfirmed()">Speichern</button>
+    	</div>
+    </div>
+  </div>
+</div>
+
+<div modal="doActivateAccount" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">
+					Nicht aktiv
+				</div>
+				
+				<div>
+					{{doActivateAccountText}}
+				</div>				
+				<br>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="doActivateAccount = false;">Schliessen</button> 
+			</div>
+		</div>
+	</div>
+</div>
+

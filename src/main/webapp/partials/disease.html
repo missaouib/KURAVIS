@@ -1,0 +1,97 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li ng-show="{{diseaseName!=null && diseaseName!=''}}"><a href="/Behandlungen">Start</a></li>
+  <li ng-show="{{diseaseName!=null && diseaseName!=''}}" class="active">{{diseaseName | uppercase}}</li>
+</ol>
+<div id="searchHeader" ng-show="!diseaseName">
+	<div class="title">KURAVIS Gesundheitsverzeichnis</div>
+	<div class="row">
+		<div class="col-md-10 subtitle">Ratschl&auml;ge finden und Behandlungen bewerten</div>
+		<div class="col-md-2" style="padding-top:4px;"><button class="btn btn-primary pull-right btn-icon-chevron-right" ng-click="doMakeReview()">Bewerten</button></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<input class="searchbar" id="disease_selector" type="hidden" ng-init="init()">
+	</div>
+</div>
+
+<div ng-show="!diseaseName">
+	<div class="treatmentLetters">
+		<a ng-click="reloadLetter(l)" class="treatmentLetter" style="cursor: pointer" ng-class="objStyle(l)?'bigLetter':''" ng-repeat="l in letters"> {{l}} </a>
+	</div>
+	<div class="dictionaryTableRow">
+		<div ng-repeat="obj in tableData" class="col-md-6" style="padding-left: 0px">
+			<div ng-style="{backgroundColor: (((($index + 4)%4)==0) || ((($index + 3)%4)==0))? 'rgb(250, 245, 242)':'#FFFFFF'}">
+				<a ng-show="!obj.suggestion" href="/{{obj.disease}}/{{obj.treatment}}" class="dictionaryTreatment">{{obj.disease | uppercase}} - {{obj.treatment}}</a>
+				<span ng-show="obj.suggestion" class="dictionaryTreatment">{{obj.disease | uppercase}} - {{obj.treatment}}</span>
+			</div>
+		</div>
+	</div>
+	<div style="clear:both"></div>
+	<table ng-show="steps" style="margin:auto;margin-top:20px;">
+		<tr align="center" valign="bottom">
+			<td ng-repeat="step in steps" >
+				<div ng-click="toStep(step)" ng-class="stepClassInfo(step)" style="cursor:pointer">
+					<span>{{step}}</span>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td ng-repeat="step in steps"><div ng-class="stepProgressClassInfo(step)" style="cursor:pointer"></div></td>
+		</tr>
+	</table>
+</div>
+
+<div class="row" ng-show="diseaseName">
+	<div class="col-xs-12 col-sm-6 col-md-8 diseaseTitle">{{treatmentReviewsCount==0 ? 'Noch keine' : treatmentReviewsCount}} {{treatmentReviewsCount | formatNumberToString:'Behandlung'}} für <span class="bold">{{diseaseName}}</span>
+	<a class="btn btn-xs btn-icon-follow" ng-click="follow(true)" ng-hide="followItemId" data-toggle="tooltip" data-placement="bottom" title="{{followTooltip}}">Folgen</a>
+	<a class="btn btn-xs btn-icon-follow" ng-click="follow(false)" ng-show="followItemId">Nicht folgen</a>
+	</div>
+	<div class="col-xs-6 col-md-4" style="padding-top: 1px;"><button class="btn btn-xs pull-right btn-icon-chevron-right" ng-click="doMakeReview()">Bewerten</button></div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table width="100%" class="table" infinite-scroll='treatmentReviewSummaryNextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1' ng-show="treatmentReviewSummary.length">
+			<tbody>
+				<tr width="100%" class="verticalAlignMiddle" ng-repeat="tr in treatmentReviewSummary track by tr._id">			
+					<td width="33%" class="noPaddingLeft">
+						<a ng-show="tr.reviewsCount>0" ng-href="/{{tr.disease.name | urlEncode}}/{{tr.treatment.name | urlEncode}}" class="itemTitle">{{tr.treatment.name}}</a>
+						<div class="itemTitle" ng-if="tr.suggestion">{{tr.treatment.name}}</div>
+						<div class="details" ng-if="tr.reviewsCount>0">{{tr.reviewsCount}} {{tr.reviewsCount | formatNumberToString:'Bewertung'}}</div>
+						<div class="details" ng-if="tr.suggestion">Noch keine Bewertung</div>
+						<div class="visible-xs details" ng-if="tr.reviewsCount>0"><small>{{tr.lastChanged}}</small></div>
+						<span ng-show="tr.suggestion"><button class="visible-xs btn btn-xs" ng-click="doMakeReview()">Jetzt bewerten</button></span>
+					</td>
+					<td width="33%" style="padding-top: 12px;">
+						<kur-rating value="{{tr.ratings | calcRating}}" ng-show="tr.reviewsCount>0"/>
+					</td>
+					<td class="hidden-xs noPaddingRight" style="padding-top: 12px;">
+						<span ng-if="tr.reviewsCount>0" class="details pull-right">{{tr.lastChanged}}</span>
+						<span ng-show="tr.suggestion"><button class="btn btn-xs pull-right" ng-click="doMakeReview(tr.treatment.name)">Jetzt bewerten</button></span>
+					</td>
+				</tr>
+				<tr width="100%" ng-show='busy'><td>Bitte warten. Daten werden geladen.</td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!--  <users-list users="users" /> -->

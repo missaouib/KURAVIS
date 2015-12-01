@@ -1,0 +1,150 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<br>
+<div class="cal-row-fluid cal-row-head">
+	<% _.each(months, function(name){ %>
+		<div class="cal-cell1 event-title"><%= name %></div>
+	<% }) %>
+</div>
+<div class="cal-month-box">
+	<% for(i = 0; i < 6; i++) { %>
+		<% if(cal.stop_cycling == true) break; %>
+		<div class="cal-row-fluid cal-before-eventlist">
+			<div class="cal-cell1 cal-cell" data-cal-row="-day1"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day2"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day3"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day4"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day5"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day6"><%= cal._day(i, day++) %></div>
+			<div class="cal-cell1 cal-cell" data-cal-row="-day7"><%= cal._day(i, day++) %></div>
+			<%= cal._month_week(i) %>
+		</div>
+	<% } %>
+</div>
+<br>
+<button class="btn btn-xs btn-inactive btn-icon-chevron-left calendar-subtitle" onclick="changeView('year')"><%= cal.options.position.start.getFullYear() %></button>
+<br>
+<br>
+<br>
+<div class="row">
+	<div class="col-md-11">
+		<div class="event-title">Kategorie und Beschreibung</div>
+	</div>
+	<div class="col-md-1 event-time">Datum</div>
+</div>
+<div class="row">
+	<div class="col-md-12 diaryEventEndMinBlack"></div>
+</div>
+<% _.each(events, function(event){ %>
+	<% if(event['eventType'] == 'REVIEW'){ %>
+		<div class="diaryEvent">
+			<div class="row" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>" style="cursor: pointer;">
+				<div class="col-md-11">
+					<div class="event-icon event-icon-REVIEW"></div>
+					<div class="event-title">Bewertung <%= event.disease.name %> - <%= event.treatment.name %> Benotung: <%=event.ratingString %></div>
+					
+				</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+		
+	<% } %>
+	
+	<% if(event['eventType'] == 'NOTE'){ %>
+		<div class="diaryEvent">
+			<div class="row" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>" style="cursor: pointer;">
+				<div class="col-md-11">
+					<div class="event-icon event-icon-NOTE"></div>
+					<div class="event-title">Tagebuch <%= event.title %></div>
+				</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'REVIEW_VOTE'){ %>
+		<div class="diaryEvent">
+			
+			
+			<div class="row" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>" style="cursor: pointer;">
+				<div class="col-md-11">
+					<div class="event-icon event-icon-REVIEW_VOTE">
+					</div>
+					<div class="event-title">Avis <%= event.author.name %>'s review <%= event.disease.name %>-<%= event.treatment.name %></div>
+					
+				</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	
+	<% if(event['eventType'] == 'DISEASE'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<div class="col-md-11">Disease</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'TREATMENT'){ %>
+		<div class="diaryEvent">
+			<div class="row" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>" style="cursor: pointer;">
+				<div class="col-md-11">
+					<div class="event-icon event-icon-TREATMENT-disease"></div>
+					<div class="event-title">
+						<%= event.formatedText %>
+					</div>
+				</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'WEIGHT'){ %>
+		<div class="diaryEvent">
+			<div class="row" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>" style="cursor: pointer;">
+				<div class="col-md-11">
+					<div class="event-icon event-icon-WEIGHT"></div>
+					<div class="event-title"><%= event.weight %>kg</div>
+				</div>
+				<div class="col-md-1 event-time"><%= event.start_date %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEndMin"></div>
+			</div>
+		</div>
+	<% } %>
+	
+<% }); %>

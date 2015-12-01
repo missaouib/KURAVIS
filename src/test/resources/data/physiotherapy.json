@@ -1,0 +1,52 @@
+#-------------------------------------------------------------------------------
+# Copyright 2015 MobileMan GmbH
+# www.mobileman.com
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+[{
+	"_id":"a0820ed4-2f0b-48de-9178-89532449f9ed",
+	"name":"Manuelle Therapie"
+},
+{
+	"_id":"058a714b-8b42-421f-a2f7-5f56c5507401",
+	"name":"Massage"
+},
+{
+	"_id":"08710169-ae5b-48c2-80be-4a616394e821",
+	"name":"Krankengymnastik"
+},
+{
+	"_id":"e6993946-7f31-427f-9e4a-27cf9a510b09",
+	"name":"PNF-Therapie"
+},
+{
+	"_id":"803b6877-952c-4bdd-a51d-e83b33745e31",
+	"name":"Bobath-Therapie"
+},
+{
+	"_id":"87c1cd34-5002-4f67-b1bf-471bf86c65b7",
+	"name":"Vojta-Therapie"
+},
+{
+	"_id":"bdc2876a-08d6-4bcd-97dc-1ba6487be968",
+	"name":"Wärmetherapie"
+},
+{
+	"_id":"182f2ddb-fbd2-4877-943d-b61bd959157f",
+	"name":"Kältetherapie"
+},
+{
+	"_id":"ea0cf01d-dc30-4eb5-9df7-e5a38a98d470",
+	"name":"Manuelle Lymphdrainage"
+}]

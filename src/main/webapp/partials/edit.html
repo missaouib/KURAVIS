@@ -1,0 +1,663 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li ng-repeat="item in wizardBreadcrumb" class="{{$last?'active':'s'}}" ng-click="toStep($index+1)">{{item}}</li>
+</ol> 
+ 
+<div class="wizardContainer">
+	<table class="fullWidth">
+	<tr style="padding-bottom:6px">
+		<td align="left" width="40%" valign="bottom" class="wizardTitle">autoTitle</td>
+		<td align="center" width="20%"></td>
+		<td align="right" width="40%" style="padding-bottom:6px">
+			<table border=0>
+			<tr align="center" valign="bottom">
+				<!-- <td>
+					<div ng-click="chgStep(-1)" style="cursor: pointer" class="wizardInfo wizardInfoActive btn_prev_step disabled"><span>&lt;</span></div>
+				</td> -->
+				<td>	
+					<div ng-click="toStep(1)" ng-class="stepClassInfo(1)" class="wizardInfo"><span>1</span></div>
+				</td><td>
+					<div ng-click="toStep(2)" ng-class="stepClassInfo(2)" class="wizardInfo"><span>2</span></div>
+				</td><td>
+					<div ng-click="toStep(3)" ng-class="stepClassInfo(3)" class="wizardInfo"><span>3</span></div>
+				</td><td>	
+					<div ng-click="toStep(4)" ng-class="stepClassInfo(4)" class="wizardInfo"><span>4</span></div>
+				</td><td>	
+					<div ng-click="toStep(5)" ng-class="stepClassInfo(5)" class="wizardInfo"><span>5</span></div>
+				</td><td>	
+					<div ng-click="toStep(6)" ng-hide="hideLoggedUser()" ng-class="stepClassInfo(6)" class="wizardInfo"><span>6</span></div>
+				</td><td>	
+					<div ng-click="toStep(7)" ng-hide="hideLoginStep()" ng-class="stepClassInfo(7)" class="wizardInfo"><span>7</span></div>
+				</td>
+				<!-- <td>	
+					<div ng-click="chgStep(1)" style="cursor: pointer" class="wizardInfo wizardInfoActive btn_next_step disabled"><span>&gt;</span></div>
+				</td> -->
+			</tr>
+			<tr>
+				<td>
+					<div ng-class="stepProgressClassInfo(1)"></div>
+				</td><td>
+					<div ng-class="stepProgressClassInfo(2)"></div>
+				</td><td>	
+					<div ng-class="stepProgressClassInfo(3)"></div>
+				</td><td>	
+					<div ng-class="stepProgressClassInfo(4)"></div>
+				</td><td>	
+					<div ng-class="stepProgressClassInfo(5)"></div>
+				</td><td>	
+					<div ng-class="stepProgressClassInfo(6)"></div>
+				</td><td>	
+					<div ng-class="stepProgressClassInfo(7)"></div>
+				</td>
+			</tr>			
+			</table>			
+		</td>	
+	</tr>		
+	</table>
+
+	<div id="step1" ng-class="stepClass(1)" class="wizardPage">
+		<div class="row section"> 	
+			<div class="col-md-12" style="margin-top:-10px; margin-bottom:28px">
+				<span class="pull-right">
+					<a ng-show="(step == 1)" class="wizardText wizardNewHere" id="popover1" rel="popover1" data-original-title=""><span style="cursor: pointer;">Neu hier?</span></a>
+					<br>
+					<div id="popover_content_wrapper1" class="popover-content" style="display: none">
+						Danke, dass Sie eine Bewertung auf KURAVIS abgeben m&ouml;chten. Jede Bewertung erfolgt in ein paar wenigen Schritten.
+						<br><br>
+						Bitte geben Sie ein gesundheitliches Anliegen/Beschwerde in die Suchzeile ein und klicken auf einen passenden Begriff um die Bewertung zu starten. Folgen Sie dann einfach den Anweisungen auf dem Bildschirm, um die Bewertung abzuschlie&szlig;en.
+						<br><br>
+						Gibt es noch keinen passenden Begriff, klicken Sie im Suchfeld auf "Neu" um ein neues gesundheitliches Anliegen zu erstellen. Keine Sorge, auch mit einem neuen Anliegen dauert die Bewertung nicht länger.
+						</div>
+				</span>				
+			</div>
+			<div class="col-md-12">
+				<input id="disease_selector" class="searchbar" type="hidden" ng-init="initDiseases()">
+			</div> 	
+		</div>
+       	<form class="form-horizontal " role="form" ng-submit="validateAndNext(eventForm1.$valid)" name="eventForm1" novalidate>
+		<div class="section">
+			<div class="panel panel-default" id="panel1">
+			    <div class="panel-heading">
+			      <a style="outline: 0; text-decoration: none;" data-toggle="collapse" data-target="#questionsPanel1" >
+			          <div class="wizardTextBold">
+			          	<div class="row">
+			          		<div class="col-md-10 col-sm-10 col-xs-10">
+			          			<div>Optionale Zusatzfragen</div>
+			          		</div>
+			          		<div class="col-md-2 col-sm-2 col-xs-2">
+			          			<div id="questionsPanel1Icon" class="collapse-icon"></div>
+			          		</div>
+			          	</div>
+			          </div>
+			        </a>
+			    </div>
+			    <div id="questionsPanel1" class="panel-collapse {{isQuestionsPanel1Collapsed()?' collapse':' in'}}">
+			      <div class="panel-body">
+						<div class="form-group" ng-class="{ 'has-error' : eventForm1.dateOfFirstSymptomsId.$invalid && !eventForm1.dateOfFirstSymptomsId.$pristine }">
+							<label for="dateOfFirstSymptomsId" class="col-sm-4">Zeitpunkt der ersten Symptome</label>
+							<div class="col-sm-2">
+								<input id="dateOfFirstSymptomsId" class="form-control datepicker" ng-valid="dateOfFirstSymptomsValid()" type="text" readonly="" value="" size="16"></input>
+								<p ng-show="eventForm1.dateOfFirstSymptomsId.$invalid" class="text-danger">Invalid.</p>
+							</div>
+							<div class="col-sm-6">
+								<label for=dateOfFirstSymptomsId class="add-on"><img src="/assets/images/calendar.png"></label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="dateOfDiagnosisId" class="col-sm-4">Zeitpunkt der Diagnose</label>
+							<div class="col-sm-2">
+								<input id="dateOfDiagnosisId" class="form-control datepicker" ng-valid="dateOfDiagnosisValid()" type="text" readonly="" value="" size="16" />
+								<p ng-show="eventForm1.dateOfDiagnosisId.$invalid" class="text-danger">Invalid.</p>
+							</div>
+							<div class="col-sm-6">
+								<label for=dateOfDiagnosisId class="add-on"><img src="/assets/images/calendar.png"></label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-2">
+								<div class="radio-inline">
+									<label><input type="radio" name="curedRadio" id="radioNotCuredId" ng-model="review.cured" ng-value="false">Nicht kuriert</label>
+								</div>
+							</div>
+							<div class="col-sm-10">
+								<div class="radio-inline">
+									<label><input type="radio" name="curedRadio" id="radioCuredId" ng-model="review.cured" ng-value="true">Kuriert</label>
+								</div>
+							</div>
+						</div>
+			      </div>
+			    </div>
+			  </div>
+		</div>
+		
+		<div class="row noPaddingRight">
+			<div class="col-md-12">
+				<div class="btn-group pull-right">
+					<button type="submit" class="btn btn-xs wizardNextButton btn-icon-chevron-right btn-inactive">Weiter zur Behandlungsmethode</button>
+					<button ng-click="finish()" type="submit" ng-show="editMode" class="btn btn-xs btn-icon-chevron-right btn-inactive">Abschliessen</button>
+				</div>
+			</div>
+		</div>
+	    </form>
+		<div class="row" style="padding-top: 20px">
+			<span class="wizardText" ng-show="((diseaseName.length > 0) && (users != null) && (users.length != 0))">Nutzer bei KURAVIS, die an Ihren Erfahrungen interessiert sind:</span> <span
+				class="wizardText" ng-show="(((diseaseName == null) || (diseaseName.length == 0))  && (users.length != 0))">Nutzer bei KURAVIS, die an Ihren Erfahrungen interessiert sind:</span> <span
+				class="wizardText" ng-show="((users == null) || (users.length == 0))">Sch&ouml;n, dass Sie als erste Person f&uuml;r <span class="wizardTextBold">{{diseaseName}}</span> eine
+				Behandlungserfahrung teilen.
+			</span>
+		</div>
+		<users-list users="users"></users-list>
+		<span class="wizardText" ng-show="((diseaseName.length > 0) && (users != null) && (users.length > 7))">... und weitere {{users.length - 7}} Nutzer.</span>
+	</div>
+
+	<div id="step2" ng-class="stepClass(2)" class="wizardPage">
+		<div class="row section">
+			<div class="col-md-12" style="margin-top:-10px; margin-bottom:28px">
+				<span class="pull-right">
+					<a style="float: left; margin-left: 10px;" class="pull-right noPaddingRight wizardText wizardNewHere" id="popover3" rel="popover3" data-content="Behandlungstagebuch<br><br>Mit den optionalen Zusatzfragen können Sie Ihr individuelles Tagebuch pflegen. Eingaben können jederzeit später in Ihrem Tagebuch übersichtlich und detailliert eingesehen.<br><br>Aktivieren Sie die Funktion E-Mail Erinnerung, um Sie auf Basis Ihres Behandlungsplanes per E-Mail zu erinnern." data-original-title="">
+						<span style="cursor: pointer;">Info</span>
+					</a>
+				</span>				
+			</div>
+			<div class="col-md-12">
+				<input id="treatment_selector" class="searchbar" type="hidden" ng-init="initTreatments()">
+			</div>
+		</div>
+		
+		<div class="section">
+			<div class="panel panel-default" id="panel1">
+			    <div class="panel-heading">
+			      <a style="outline: 0; text-decoration: none;" data-toggle="collapse" data-target="#questionsPanel2" >
+			          <div class="wizardTextBold">
+			          	<div class="row">
+			          		<div class="col-md-10 col-sm-10 col-xs-10">
+			          			<div style="float: left; ">Optionale Zusatzfragen</div>
+			          			
+			          		</div>
+			          		<div class="col-md-2 col-sm-2 col-xs-2">
+			          			<div id="questionsPanel2Icon" class="collapse-icon"></div>
+			          		</div>
+			          	</div>
+			          </div>
+			        </a>
+			    </div>
+			    <div id="questionsPanel2" class="panel-collapse {{isQuestionsPanel2Collapsed()?' collapse':' in'}}">
+			    	<div class="panel-body">
+			        	<form class="form-horizontal" role="form" name="eventForm" novalidate>
+							<div class="form-group">
+								<label for="selectCategoryId" class="col-sm-3">Behandlungskategorie</label>
+								<div class="col-sm-9">
+									<custom-select-options class="customSelectDesign" width="100%" minimum-search-result="30" action="resetSelectedTreatmentEvent()" select-id="selectCategoryId" options="treatmentCategoryOptions"
+										selected-option="selectedTreatmentEvent.category"></custom-select-options>
+								</div>
+							</div>
+							<div class="form-group" ng-show="isTreatmentPlanCategorySelected() || isPhysiotherapyCategorySelected() || isPsychotherapyCategorySelected()">
+								<label for="frequency" class="col-sm-3">Häufigkeit</label>
+								<div class="col-sm-9">
+									<custom-select-options id="frequency" class="customSelectDesign" select-id="selectFrequencyId" options="frequencyOptions" selected-option="selectedTreatmentEvent.frequency" minimum-search-result="30"></custom-select-options>
+								</div>
+							</div>
+							<div class="form-group" ng-show="isTreatmentPlanCategorySelected()">
+								<label for="quantity" class="col-sm-3">Menge</label>
+								<div class="col-sm-2">
+									<custom-select-options class="customSelectDesign" select-id="quantity" options="amountOptionsWithId" selected-option="selectedTreatmentEvent.quantity" minimum-search-result="30"></custom-select-options>
+								</div>
+								<div class="col-sm-7" ng-show="isTreatmentPlanCategorySelected()" style="padding-left: 4px">
+									<custom-select-options class="customSelectDesign" width="100%" select-id="selectTreatmentTypeId" options="treatmentTypeOptions" selected-option="selectedTreatmentEvent.type.name"></custom-select-options>
+								</div>
+							</div>
+							<div class="form-group" ng-show="isTreatmentPlanCategorySelected()">
+								<label for="dosis" class="col-sm-3">Dosis</label>
+								<div class="col-sm-2">
+									<input type="number" min="0" id="dosis" ng-model="selectedTreatmentEvent.dose" class="form-control" placeholder="" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')">
+								</div>
+								<div class="col-sm-7" style="padding-left: 4px">
+									<custom-select-options class="customSelectDesign" select-id="selectUnitOptionId" options="unitOptions" selected-option="selectedTreatmentEvent.unit.name"></custom-select-options>
+								</div>
+							</div>
+							<div class="form-group" ng-show="isPhysiotherapyCategorySelected() || isPsychotherapyCategorySelected()">
+								<label for="duration" class="col-sm-3">Behandlungsdauer</label>
+								<div class="col-sm-2">
+									<input type="number" id="duration" ng-model="selectedTreatmentEvent.duration" class="form-control" placeholder="" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')">
+								</div>
+								<div class="col-sm-7" style="padding-left: 4px">
+									<custom-select-options class="customSelectDesign" select-id="treatmentDurationOptionId" options="durationUnitOptions" selected-option="selectedTreatmentEvent.unit.name" minimum-search-result="30"></custom-select-options>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom: 0px;" ng-show="isStartEnabled()">
+								<label class="col-sm-3" ng-show="((isTreatmentPlanCategorySelected() || isPhysiotherapyCategorySelected() || isPsychotherapyCategorySelected()) && isOneTimeFrequencySelected())">Datum</label>
+								<label class="col-sm-3" ng-show="((isTreatmentPlanCategorySelected() || isPhysiotherapyCategorySelected() || isPsychotherapyCategorySelected()) && (!isOneTimeFrequencySelected()))">Beginn der Behandlung</label>
+								<label class="col-sm-3" ng-show="isMedicalElectronicDeviceCategorySelected()">Zeitpunkt der Anwendung</label>
+								<label class="col-sm-3" ng-show="isOperationCategorySelected()">Zeitpunkt der Operation</label>
+								<label class="col-sm-3" ng-show="isOthersCategorySelected()">Zeitpunkt der Behandlung</label>
+								<div class="col-sm-2">
+									<input id="treatmentEntryStartDateId" class="datepicker form-control" type="text" readonly="" value="" size="16" />
+								</div>
+								<div class="col-sm-7" style="padding-left: 4px">
+									<label for=treatmentEntryStartDateId class="add-on"><img src="/assets/images/calendar.png"></label>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom: 0px;" ng-show="isEndEnabled()">
+								<label class="col-sm-3">Ende der Behandlung</label>
+								<div class="col-sm-2">
+									<input id="treatmentEntryEndDateId" class="form-control datepicker" type="text" readonly="" value="" size="16" />
+								</div>
+								<div class="col-sm-7" style="padding-left: 4px">
+									<label for=treatmentEntryEndDateId class="add-on"><img src="/assets/images/calendar.png"></label>
+								</div>
+							</div>
+							<div class="form-group" ng-show="selectedTreatmentEvent.frequency && isTreatmentPlanCategorySelected()">
+								<label for="timepicker3" class="col-sm-3">Zeit</label>
+								<div class="col-sm-2 bootstrap-timepicker">
+									<input id="timepicker3" type="text" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group" ng-show="selectedTreatmentEvent.frequency && isTreatmentPlanCategorySelected()">
+								<div class="col-sm-offset-3 col-sm-9">
+									<div class="checkbox" style="padding-top: 2px;">
+										<label> <input type="checkbox" id="mailReminder" ng-model="selectedTreatmentEvent.reminder"> E-Mail Erinnerung
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group" ng-show="isOthersCategorySelected()">
+								<label for="addText" class="col-sm-3">Zusatztext</label>
+								<div class="col-sm-9">
+									<input id="addText" type="text" class="form-control" ng-model="selectedTreatmentEvent.text" placeholder="" />
+								</div>
+							</div>
+						</form>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="btn-group pull-right" ng-show="userLogged && selectedTreatmentEvent.category">
+									<button class="btn btn-default" ng-click="cancelTreatmentEvent()">Abbrechen</button>
+									<button class="btn btn-primary" ng-click="saveTreatmentEvent()">Speichern</button>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 24px; border-top: 1px solid #D8D3D3;">
+						</div>
+						<div class="row" style="margin-top:8px;">
+							<div class="col-md-4 col-sm-4 col-xs-4 wizardTextBold">Tagebuch Einträge</div>
+							<div class="col-md-8 col-sm-8 col-xs-8" ng-show="!userLogged">
+								<span class="text-warning pull-right">Mehrere Eintr&auml;ge nur f&uuml;r registrierte Nutzer</span>
+							</div>
+						</div>
+						<div class="doubleSpaceTop" ng-repeat="treatmentEvent in treatmentEvents " ng-show="userLogged">
+							<div class="treatmentEventItem" ng-style="(treatmentEvent == selectedTreatmentEvent) && {'background-color': '#AAAAAA'}">
+								<a class="btn btn-sm pull-right" style="cursor: pointer; line-height: 12px;" ng-click="deleteTreatmentEvent(treatmentEvent)">Löschen</a>
+								<div ng-click="selectTreatmentEvent(treatmentEvent)">{{fmtTreatmentCategory(treatmentEvent)}}: {{treatmentEvent | treatmentEventDescription}}</div>
+							</div>
+						</div>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+
+		<div class="row noPaddingRight">
+			<div class="col-md-2">
+				<div class="pull-left">
+					<button ng-click="toStep(1)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="btn-group pull-right">
+					<button ng-click="chgStep(1)" class="btn btn-xs wizardNextButton btn-icon-chevron-right btn-inactive">Weiter zum Textkommentar</button>
+					<button ng-click="finish()" ng-show="editMode" class="btn btn-xs btn-icon-chevron-right btn-inactive">Abschliessen</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="step3" ng-class="stepClass(3)" class="wizardPage">
+		<div class="section">
+			<div class="row" style="margin-top:10px">
+				<kur-rating-edit-big value="review.rating" no-rating-text="Wie bewerten Sie insgesamt die Behandlung?" />
+			</div>
+			<div class="row">
+			<a class="wizardNewHere" id="popover2" rel="popover2" data-original-title="Kuravis Richtlinien"><span style="cursor: pointer;">KURAVIS Richtlinien</span></a>
+			<div id="popover_content_wrapper2" style="display: none; margin-right: 10px;">
+				<div class="sectiontitle">Erwähnen Sie in Ihrer KURAVIS-Textbewertung vor allen Dingen Punkte, die sich nur schwierig statistisch zusammenfassen lassen wie beispielsweise</div>
+				<br>
+				<ul>
+				<li>Tipps zur Einnahme des Medikaments oder Durchführung der Behandlungsmethode<br></li>
+				<li>Ihre subjektive Erfahrung der Behandlungsmethode<br></li>
+				</ul>
+				<br>
+				Achten Sie bei langen Bewertungen auf Paragraphierung, Zeilenumbrüche und andere Formatierungskniffe wie zum Beispiel Aufzählungen, um Ihre Bewertung möglichst gut verständlich und leserlich zu strukturieren<br>
+				<br>
+				<a href="/text/guidelines" target="_blank">Mehr Informationen zu KURAVIS Richtlinien</a> 
+			</div>
+			</div>
+			<div class="row" style="margin-top:10px">
+				<div class="col-sm-12">
+					<textarea id="textarea" rows="10" class="form-control input-xxlarge background-color-white resizeForbidden" maxlength="{{maxLengthDescription}}" ng-model="reviewText" ng-trim='false' ng-change="validateStepInternal()" placeholder="Bewerten Sie die Behandlung in Ihren eigenen Worten.">
+					</textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row noPaddingRight">
+ 			<div class="col-md-2">
+ 				<div class="pull-left">
+					<button ng-click="toStep(2)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+				</div>
+ 			</div>
+ 			<div class="col-md-10">
+ 				<div class="btn-group pull-right">
+					<button ng-click="chgStep(1)" class="btn btn-xs wizardNextButton btn-icon-chevron-right btn-inactive">Weiter zu den Nebenwirkungen</button>
+					<button ng-click="finish()" ng-show="editMode" class="btn btn-xs btn-icon-chevron-right btn-inactive">Abschliessen</button>
+				</div>
+ 			</div>
+		</div>
+		
+	</div>
+	
+	<div id="step4" ng-class="stepClass(4)" class="wizardPage">
+		<div class="section">
+			<div class="row" style="padding-top:20px">
+				<div class="col-sm-12">
+					<input id="side_effect_selector" class="searchbar" type="hidden" ng-init="initSideEffects()">		
+				</div>
+			</div>
+			
+			<div ng-show="sideEffects.length > 0">
+				<div class="sectiontitle" >Wie stark waren die Nebenwirkungen?</div>
+				<ng-severity side-Effects="sideEffects" remove-Enabled="true" editable="true" size="100"></ng-severity>
+			</div>
+			<div style="width:100%" ng-show="noSideEffect">
+				Keine Nebenwirkungen
+			</div>
+		</div>
+		
+		
+		<div class="row noPaddingRight">
+ 			<div class="col-md-2">
+ 				<div class="pull-left">
+					<button ng-click="toStep(3)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+				</div>
+ 			</div>
+ 			<div class="col-md-10">
+ 				<div class="btn-group pull-right">
+					<button ng-click="chgStep(1)" class="btn btn-xs wizardButtonDisabled btn-icon-chevron-right btn-inactive">Weiter zur Endbewertung</button>
+					<button ng-click="finish()" ng-show="editMode" class="btn btn-xs btn-icon-chevron-right btn-inactive">Abschliessen</button>
+				</div>
+ 			</div>
+		</div>	
+	</div>
+	
+	<div id="step5" ng-class="stepClass(5)" class="wizardPage">
+		<div class="section">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="doctorCostsId" class="col-sm-3">Arztkosten</label>
+					<div class="col-sm-2">
+						<input type="number" min=0 class="form-control numberInput" id="doctorCostsId" placeholder="" ng-model="review.doctorCosts" ng-change="updateTotalAmount()" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')"></input>
+					</div>
+					<div class="col-sm-1" style="padding-left:4px">€
+						<!-- 
+						<select class="form-control" ng-model="review.currency" ng-options="item.name as item.name for item in currencyOptions"></select>
+						 -->
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="Costs" class="col-sm-3">Einzelpreis Behandlung</label>
+					<div class="col-sm-2">
+						<input type="number" min=0 class="form-control numberInput" id="Costs" placeholder="" ng-model="review.treatmentPrice" ng-change="updateTotalAmount()" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')"></input>
+					</div>
+					<div class="col-sm-1" style="padding-left:4px">€</div>
+				</div>
+				<div class="form-group" ng-show="review.treatmentPrice">
+					<label for="quantityCosts" class="col-sm-3">Menge</label>
+					<div class="col-sm-2">
+						<select class="form-control" id="quantityCosts" ng-model="review.treatmentQuantity" ng-options="item for item in amountOptions" ng-change="updateTotalAmount()"></select>
+					</div>
+					<div class="col-sm-7">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="total" class="col-sm-3">Gesamtsumme</label>
+					<div class="col-sm-2"><span id="total">€ {{totalAmount}}<span></div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group" ng-show="totalAmount">
+ 					<div class="col-sm-offset-3 col-sm-9">
+      					<div class="checkbox" style="padding-top: 2px;">
+        					<label>
+          						<input type="checkbox" id="insuredStateId" ng-model="review.insuranceCovered"> Versicherungsleistung
+        					</label>
+        				</div>
+      				</div>
+				</div>
+				<div class="form-group" ng-show="review.insuranceCovered == true">
+					<label for="coinsurance" class="col-sm-3">Selbstbeteiligung</label>
+					<div class="col-sm-2">
+						<input type="number" min=0 class="form-control numberInput" id="coinsurance" placeholder="" ng-model="review.coinsurance" name="XX" ng-change="computeInsuranceCoverage()" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')"/>
+					</div>
+					<div class="col-sm-1" style="padding-left:4px">€</div>
+				</div>
+				<div class="form-group" ng-show="review.insuranceCovered == true">
+					<label for="costsCoveredId" class="col-sm-3">Erstattungsfähig</label>
+					<div class="col-sm-2">
+						<input type="number" disabled min=0 class="form-control numberInput" id="costsCoveredId" placeholder="" ng-model="review.insuranceCoverage" name="XX" onkeyup="this.value=this.value.replace(/[^\d*\.?\d*$]/,'')"/>
+					</div>
+					<div class="col-sm-1" style="padding-left:4px">€</div>
+				</div>
+			</form>
+		</div>
+		<div class="row noPaddingRight">
+ 			<div class="col-md-2">
+ 				<div class="pull-left">
+					<button ng-click="toStep(4)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+				</div>
+ 			</div>
+			<div class="col-md-10" ng-click="chgStep(1)"><button ng-click="save()" class="btn btn-xs wizardNextButton btn-icon-chevron-right btn-inactive">Bewertung abschliessen</button></div>
+		</div>		
+	</div>
+	<div id="step6" ng-class="stepClass(6)" class="wizardPage"  ng-hide="hideLoggedUser()">
+		<div class="section">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="sectiontitle" >Geschlecht</div>
+					<br>
+					<table>
+						<tr>
+							<td align="center"><img src="/assets/images/frau.png"> </td>
+							<td align="center"><img src="/assets/images/mann.png"> </td>
+						</tr>
+						<tr>
+							<td align="center"><input type="radio" name=myradio value="1" ng-checked="gender == 'female'"  ng-click="selectFemale()"></td>
+							<td align="center"><input type="radio" name=myradio value="2" ng-checked="gender == 'male'"ng-click="selectMale()"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-8">
+					<div class="sectiontitle" >Jahrgang</div>
+					<div class="col-md-3" style="padding-top:26px;">
+						<select id="sel" class="form-control" ng-init="initYears()" ng-model="yearOfBirth" ng-options="obj.id as obj.name for obj in list_years"  >
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row noPaddingRight">
+ 			<div class="col-md-2">
+ 				<div class="pull-left">
+					<button ng-click="toStep(5)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+				</div>
+ 			</div>
+ 			<div class="col-md-10" ng-click="chgStep(1)">
+			<button ng-click="save()" class="btn btn-sm wizardNextButton btn-icon-chevron-right btn-inactive">
+				<span ng-show="userLoggedState == ''">Weiter zur Anmeldung</span>
+				<span ng-show="userLoggedState != ''">Fertigstellen</span>
+			</button></div>
+		</div>		
+	</div>	
+
+	<div id="step7" ng-class="stepClass(7)" class="wizardPage"  ng-hide="hideLoginStep()">
+			<div>
+				<span class="sectiontitle" ng-click="loginTabSelected = true"ng-class="(loginTabSelected ? 'blackColor':'grayColor')">Registrierte Benutzer </span>
+				<span class="sectiontitle" ng-click="loginTabSelected = null" ng-class="((!loginTabSelected) ? 'blackColor':'grayColor')">&nbsp;&nbsp;&nbsp;&nbsp;Neue Benutzer </span>
+				<br><br>
+			</div>
+			<div ng-show="loginTabSelected">
+				<form ng-submit="globalSignIn()" name="signInForm" class="form-inline">
+					<input class="signInput" type="email" ng-model="signInLogin" ng-change="updateCaptcha()" placeholder="Benutzername" ng-enter="globalSignIn()"/> 
+					<input class="signInput" type="password" ng-model="signInPassword" placeholder="Passwort" ng-enter="globalSignIn()"/><br /> 
+					<div ng-show="signInMessage" class="text-danger">
+						Anmeldung ist fehlgeschlagen<br /> <br />
+					</div>						
+<!-- 					<div ng-show="showCaptcha">
+						<div style="float:left">
+							<label>Bitte Zeichen wiedergeben:</label><br />
+							<input type="password" ng-model="signInCaptcha" /> 
+						</div>
+						
+ 						<div style="float:left; text-align: center; margin-left: 14px;">
+							<img ng-src="/{{captchaImage}}" /><br /> 
+							<a style="cursor: pointer" ng-click="updateCaptcha()">Bild &auml;ndern</a>
+						</div>						
+						<div style="clear:both">
+							&nbsp;
+						</div>
+					</div>
+-->											
+				</form>
+				<div class="row noPaddingRight">
+ 					<div class="col-md-2">
+ 						<div class="pull-left">
+							<button ng-click="toStep(6)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+						</div>
+ 					</div>
+					<div class="col-md-10" ng-click="globalSignIn(signInLogin, signInPassword, signInCaptcha, null)">
+						<button class="btn btn-sm wizardNextButton btn-icon-chevron-right btn-inactive">Anmelden</button>
+					</div> 						
+				</div>
+				
+			</div>	
+			<div ng-show="((!loginTabSelected))">
+					<form class="form-inline" role="form" name="myForm">
+					<div ng-show="signUpSubmited">
+						Ihre Anfrage wurde angenommen. Bitte &uuml;berpr&uuml;fen Sie Ihr E-Mail Postfach und klicken Sie auf den Aktivierungslink in der E-Mail.<br />
+					</div>
+	
+					<div ng-show="signUpSubmitedError" class="text-warning">
+						Fehler. Bitte &uuml;berpr&uuml;fen Sie Ihre Angaben.<br />
+					</div>
+					
+					<div ng-hide="signUpSubmited">
+						<div class="text-danger" ng-show="submitted && myForm.signUpName.$error.required">Pflichtfeld</div>
+						<input class="signInput" type="text" class="input-text background-color" required name="signUpName" ng-model="signUpName" placeholder="Nutzername"> 
+						<span class="text-danger" ng-show="submitted && myForm.signUpEmail.$error.email">Email ist nicht gültig!</span>
+						<span class="text-danger" ng-show="submitted && myForm.signUpEmail.$error.required">Pflichtfeld</span>
+						<input class="signInput" type="email" class="input-text background-color" required name="signUpEmail" ng-model="signUpEmail" placeholder="E-Mail"><br />
+						<div ng-show="pwdsubmitted && signUpPassword2!=null && signUpPassword!=signUpPassword2" class="text-danger"">
+							Passw&ouml;rter stimmen nicht &uuml;berein.
+						</div>
+						<div class="text-danger" ng-show="submitted && myForm.signUpPassword.$error.required">Pflichtfeld</div>
+						<input class="signInput" type="password" class="input-text background-color" required name="signUpPassword" ng-model="signUpPassword" placeholder="Passwort">
+						<div class="text-danger" ng-show="submitted && myForm.signUpPassword2.$error.required">Pflichtfeld</div>
+						<input class="signInput" type="password" class="input-text background-color" required name="signUpPassword2" ng-blur="pwdsubmitted=true" ng-model="signUpPassword2" placeholder="Passwort wiederholen">
+						<div class="text-danger" ng-show="submitted && myForm.signUpChecked.$error.required">Pflichtfeld</div>
+						<div class="checkbox">
+							<input type="checkbox" id="signUpCheckedId" name="signUpChecked" required ng-model="signUpChecked" class="background-color" style="margin-bottom:5px"/> 
+							Ja, ich akzeptiere die <a href="/Richtlinien" target="_blank">Richtlinien</a> und die <a href="/Nutzungsbedingungen" target="_blank">Nutzungsbedingungen</a>
+						</div>
+						<div class="row noPaddingRight">
+ 							<div class="col-md-2">
+ 								<div class="pull-left">
+									<button ng-click="toStep(6)" class="btn btn-xs btn-icon-chevron-left btn-inactive">Zurück</button>
+								</div>
+ 							</div>
+							<div class="col-md-10" ng-hide="signUpSubmited">
+								<button ng-disabled="!myForm.$valid && !signUpChecked" class="btn btn-sm wizardNextButton disabled btn-icon-chevron-right btn-inactive" ng-click="submitted=true;globalSignUp(signUpName, signUpEmail, signUpPassword, signUpPassword2)" >
+								Registrieren
+								</button>
+							</div> 						
+						</div>						
+					</div>
+					</form>
+				</div>			
+	</div>				
+</div>	
+
+
+<div modal="subscribeUserDialog" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">
+					F&uuml;r Privat-BETA anmelden
+				</div>
+				KURAVIS Privat-BETA ist f&uuml;r kurze Zeit nur f&uuml;r eingeladene Nutzer.<br>
+				Ihre Bewertung wurde zwischengespeichert. Falls Sie mitmachen m&ouml;chten - teilen Sie uns Ihre E-Mail mit, und wir werden Sie informieren sobald wir weitere Nutzer hinzuf&uuml;gen. Wenn Sie sich anmelden, wird Ihre Bewertung aktiviert. In kurzer Zeit wird es f&uuml;r alle da sein.
+				<br>
+				<br>
+				<div ng-show="subscribeEmailSend">
+					Hurra! Ihre E-Mail wurde eingetragen.<br>
+				</div>
+				<br>
+				<form ng-submit="globalSubscribeNow()" name="subscribeEmailForm" class="form-inline">
+					<input ng-hide="subscribeEmailSend" class="signInput" type="email" ng-model="subcribeEmail" placeholder="E-Mail" ng-enter="subscribeEmail()">
+					<div>
+						<span ng-hide="subcribeEmail">Bitte g&uuml;ltige E-Mail angeben </span>
+					</div>
+							
+					</input> 
+				</form>				 
+			</div>
+			<div class="modal-footer" style="text-align: center">
+				<table width="100%">
+					<tr>
+						<td align="left"><span class="text-left" style="width:120px"><big>Bereits Nutzer? <a ng-click='create();' style="cursor: pointer">Bitte hier anmelden</a></big></span></td>
+						<td align="right"><button class="btn btn-default" ng-click="dismissSubscribeDialog();">Schliessen</button> 
+						&nbsp;<button ng-hide="subscribeEmailSend" class="btn btn-primary" ng-click="subscribeEmail()" ng-disabled="!subcribeEmail">Senden</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div modal="welcomeNewUser" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">
+					<b>Kuravis</b>
+				</div>
+				<div>
+					Danke, dass Sie mit uns gemeinsam mehr Transparenz in Gesundheitsfragen schaffen möchten.
+					<br>
+					<br>
+ 					Dieser kurze Hinweis dient Ihnen zur Orientierung, damit Sie Ihre erste Bewertung auf KURAVIS leichter abgeben können.
+					<br>
+					<br>
+ 					Lassen Sie sich einfach Schritt für Schritt durch die Bewertung führen, die mit einem Klick auf den nachfolgenden Button gestartet wird. Zum Schluss wählen Sie noch ein Passwort für zukünftige Zugriffe. Auch haben Sie bei der Passwortwahl die Möglichkeit, Ihren Benutzernamen zu ändern (dieser wird standardmäßig von Ihrer E-Mail Adresse abgeleitet). 					 
+				</div>
+				<br>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="welcomeNewUser = false">Bewertung Starten</button>
+			</div>
+		</div>
+	</div>
+</div>

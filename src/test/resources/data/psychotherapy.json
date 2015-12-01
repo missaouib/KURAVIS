@@ -1,0 +1,220 @@
+#-------------------------------------------------------------------------------
+# Copyright 2015 MobileMan GmbH
+# www.mobileman.com
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+[{
+	"_id":"9df07d1d-8716-4f4e-946d-8b0713ee2312",
+	"name":"Abwehrmechanismus"
+},
+{
+	"_id":"e7a8439a-128b-4b78-a9b0-840b01f9d870",
+	"name":"Allgemeines Anpassungssyndrom (AAS)"
+},
+{
+	"_id":"c8416aaf-73af-4619-b90f-e3c875337b9a",
+	"name":"Analytische Psychotherapie"
+},
+{
+	"_id":"628b81c5-91d7-47a2-b088-ce69ea79bfc7",
+	"name":"Angst"
+},
+{
+	"_id":"6ebd55e2-8bfa-4753-8866-d5472d33bf5f",
+	"name":"Anorexia Nervosa"
+},
+{
+	"_id":"6ad8735f-6f91-4e77-a92b-6f6a51a3ca87",
+	"name":"Asperger-Syndrom"
+},
+{
+	"_id":"10feb4c5-8693-41ce-8769-4dd0088cc132",
+	"name":"Aufmerksamkeitsdefizit- / Hyperaktivitätsstörung (ADS)"
+},
+{
+	"_id":"039ee372-037e-4ed8-9500-41aaf272d1df",
+	"name":"Autismus"
+},
+{
+	"_id":"4960392e-afd1-455a-9835-65483b4c5fc5",
+	"name":"Beziehung"
+},
+{
+	"_id":"51405798-986b-4e18-b95c-a8c545e66b37",
+	"name":"Bindung"
+},
+{
+	"_id":"740bbe21-77dc-4f2a-af86-b0ece9c9ed00",
+	"name":"Biofeedback"
+},
+{
+	"_id":"",
+	"name":"Borderline-Störung"
+},
+{
+	"_id":"7ccdbb31-a648-44a2-bfda-3cec4cd2245f",
+	"name":"Burnout-Syndrom"
+},
+{
+	"_id":"ac47dac2-9bd5-470e-99be-3c8d2d4f87af",
+	"name":"Depression"
+},
+{
+	"_id":"8331acea-735b-4865-8209-e42a0305c977",
+	"name":"Deutung"
+},
+{
+	"_id":"80f9dbc2-9396-4e4d-a464-741e86f7561d",
+	"name":"Dissoziative Störung"
+},
+{
+	"_id":"1ac24a2c-bc16-45c6-a22f-f20a4380fe4a",
+	"name":"Emotionale Störung"
+},
+{
+	"_id":"17881e5d-4b8b-4f2c-92d0-4bb2e1777760",
+	"name":"Esstörung"
+},
+{
+	"_id":"8e40dc34-24ad-49b7-b81f-b45760300381",
+	"name":"Gestaltungstherapie"
+},
+{
+	"_id":"11e6c9db-5d4b-4505-8071-4e2001aabb0b",
+	"name":"Gewalt"
+},
+{
+	"_id":"d46a4cce-309d-42be-9b14-0c441325d50a",
+	"name":"Gewaltfreie Kommunikation"
+},
+{
+	"_id":"887ab176-1e13-46bf-bcad-c74c79b52149",
+	"name":"Helfersyndrom"
+},
+{
+	"_id":"32603ff4-1eb2-4ce7-866b-498a5117032b",
+	"name":"Hyperaktivität"
+},
+{
+	"_id":"b2881e55-4440-4e0a-8b99-9eeec3ec320f",
+	"name":"Hypersexualität"
+},
+{
+	"_id":"a2118b49-9f20-4429-82b9-c888c15c3609",
+	"name":"Hypnose"
+},
+{
+	"_id":"b25ab0ef-69ba-4509-9bb2-84ab242e5709",
+	"name":"Hysterie"
+},
+{
+	"_id":"8e847ab5-0a1a-4e9d-a9db-3b9629cd78d8",
+	"name":"Ich"
+},
+{
+	"_id":"1cac199b-572c-48c4-9a31-325bd81428b2",
+	"name":"Individualpsychologie"
+},
+{
+	"_id":"acd83cf6-e453-43a7-bed1-e7fff8ea1a2e",
+	"name":"Inneres Kind"
+},
+{
+	"_id":"409768a1-0458-4509-8ff9-d079ea218ea1",
+	"name":"Introjektion"
+},
+{
+	"_id":"92cd460b-40c3-4ef4-a20c-8948c5933ec3",
+	"name":"Kognitive Verhaltenstherapie"
+},
+{
+	"_id":"b0dc56b4-fae0-4219-a007-2459b9d66404",
+	"name":"Konditionierung"
+},
+{
+	"_id":"05c29e91-76f5-423d-9288-a883dd24ec65",
+	"name":"Konzentrative Bewerungstherapie"
+},
+{
+	"_id":"da9bab23-1ea2-4bb4-ac89-92cbc66b22a9",
+	"name":"Krisenintervention"
+},
+{
+	"_id":"1583684d-8562-45f7-a723-4666ffd86f66",
+	"name":"Lebensfreude"
+},
+{
+	"_id":"c5b68b5f-e086-409c-9a89-8c2da760ceb9",
+	"name":"Lernpsychologie"
+},
+{
+	"_id":"68582178-c2a7-4fbb-ace2-a075221b133b",
+	"name":"Obsession"
+},
+{
+	"_id":"ca91e4e3-f649-4436-9c7d-25a18e344c11",
+	"name":"Ödipuskomplex"
+},
+{
+	"_id":"fd9b81ac-7f07-4bee-aebf-e5779605aa74",
+	"name":"Paartherapie"
+},
+{
+	"_id":"74e16838-3687-4b69-aa27-d9d8e4d34cb0",
+	"name":"Persönlichkeitsstörung"
+},
+{
+	"_id":"17adcb30-9f19-440a-b3d1-75005a3938ec",
+	"name":"Phobie"
+},
+{
+	"_id":"96490edf-e160-4d50-a477-715924ee3a09",
+	"name":"Psychoanalyse"
+},
+{
+	"_id":"18a23e98-e1eb-4ff2-a62e-784359862582",
+	"name":"Reparenting"
+},
+{
+	"_id":"43f607be-8bf7-4894-b713-d33104176d4f",
+	"name":"Schizophrenie"
+},
+{
+	"_id":"57501a0e-8b2b-4af5-a50b-13d430f23e03",
+	"name":"Schmerztherapie"
+},
+{
+	"_id":"d5ba4e65-e309-4c6e-9f45-45838ed6f24d",
+	"name":"Selbsthilfe"
+},
+{
+	"_id":"14b13255-7dcc-42c4-b804-82cd5d499fb3",
+	"name":"Selbstverletzendes Verhalten"
+},
+{
+	"_id":"4ae06cde-16c3-4d48-a03c-5e1d265d57f4",
+	"name":"Sprachverständnis"
+},
+{
+	"_id":"43557998-1a36-451b-b514-5edcc08f57b1",
+	"name":"Suizid"
+},
+{
+	"_id":"9b7472ac-8c01-4ef6-9b79-e562eea9b9cb",
+	"name":"Trauma"
+},
+{
+	"_id":"2c94570b-4240-4989-8646-db8c620768d0",
+	"name":"Verdrängung"
+}]

@@ -1,0 +1,286 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li class="active">{{user.name}}</li>
+</ol>
+<!-- 
+<div class="row" ng-show="$root.userLogged._id == userId">
+	<div class="col-md-10">
+		<input id="disease_selector" class="searchbar" type="hidden" ng-init="initDiseases()"></input>		
+	</div>
+	<div class="col-md-2">
+		<button type="button" class="btn btn-sm btn-default" ng-click="addDisease()" style="width: 100%; margin-bottom: 20px;">Kur hinzuf&uuml;gen</button>
+	</div>				
+</div>
+ -->
+
+<table width="100%">
+	<tr>
+		<td nowrap="nowrap" width="40px">
+			<ng-avatar class="pull-left" ng-href="/Nutzer/{{user._id}}" color="{{user.settings.profile.avatarColor}}" name="{{user.name.substring(0,1)}}"></ng-avatar>
+		</td>
+		<td class="padding10" valign="center">
+			<div class="userheadertitle">{{user.name}}</div>
+			<div class="details">
+				<span ng-show="user.yearOfBirth">{{user.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="((!((user.gender == null) || (user.gender == 'unknown') || (user.gender == ''))) && (user.yearOfBirth == null))">{{user.gender | formatGender}}</span><span ng-show="((!((user.gender == null) || (user.gender == 'unknown') || (user.gender == ''))) && (user.yearOfBirth != null))">, {{user.gender | formatGender}}</span>
+				<span ng-show="user.location"> aus {{user.location}}</span>
+			</div>
+		</td>
+		<!--
+		<td width="75%">
+			<ng-userheader letter="{{user.name.substring(0,1)}}" title="{{user.name}}" color="{{user.settings.profile.avatarColor}}"></ng-userheader>
+		</td>
+		  -->
+		<td ng-show="userLogged">
+			<span class="semiBold pull-right" ng-show="userLogged._id!=user._id && !user.settings.profile.diaryPublic">{{user.name}}'s Tagebuch (privat)</span>
+			<a class="btn btn-xs pull-right btn-icon-chevron-right" ng-show="userLogged._id==user._id || user.settings.profile.diaryPublic" ng-href="/Tagebuch/{{user._id}}">{{user.name}}'s Tagebuch</a>
+		</td>
+	</tr>
+</table>
+<div ng-show="user.aboutMe" class="staticPopover bottom" style="width:100%;margin-top:4px;margin-bottom:14px">
+	<div class="popover-content reviewCommentSubtitleText">
+		<pre class="reviewtexttext">{{user.aboutMe}}</pre>
+	</div>
+</div>
+<!-- 
+<div class="section" ng-show="unreadNotifications!== 0">
+	<div class="sectiontitle">Aktualisierungen</div>
+	<div ng-show="notifications.length">
+		<table class="table-events" infinite-scroll='notificationsNextPage()' infinite-scroll-disabled='notificationBusy' infinite-scroll-distance='1'>
+			<tr ng-repeat="notification in notifications" width="100%">
+				 <td width="35px" valign="top">
+				 	<div class="eventIcon">
+				 		<img src="/assets/images/vvis.png" ng-show="notification.type == 'treatment_review_vote'">
+					 <img src="/assets/images/kommentar.png" ng-show="notification.type == 'treatment_review_comment'">
+				 	</div>
+				 </td>
+				 <td align="left">		
+					<div class="media">
+						
+						<a class="pull-left" href="/Nutzer/{{notification.user._id}}">
+								<ng-avatar-small color="{{notification.user.settings.profile.avatarColor}}" name="{{notification.user.name.substring(0,1)}}"></ng-avatar-small>
+						</a>
+						<div class="media-body">
+								<div class="media-heading, reviewCommentTitleText">{{notification.user.name}} {{notification.user.yearOfBirth | getAgeFromYear | formatAgeAndGender:notification.user.gender}} </div>
+								<span class="reviewCommentSubtitleText">
+									<a ng-href="/Bewertung/{{notification.treatmentReviewId}}" ng-show="notification.type == 'treatment_review_comment'">{{notification.text}}</a>
+									<a ng-href="/Bewertung/{{notification.treatmentReviewId}}" ng-show="notification.type == 'treatment_review_vote'">Bewertung</a>
+								</span>
+						</div>
+					</div>
+				</td>								
+			</tr>
+			<tr ng-show='notificationBusy'><td>Daten laden...</td></tr>
+		</table>
+	</div>
+</div>
+ -->
+<!-- 
+<div class="section" ng-show="user.diseases.length">
+	<div class="sectiontitle">Indikationen</div>
+	<table width="100%" class="treatmentReviesTable" >
+		<tr ng-repeat="disease in user.diseases | orderBy:'disease.name'">
+			<td class="verticalAlignMiddle">
+				<div class="treatmentReviewName, verticalAlignMiddle, text-left" ng-click="selectReview(review)" style="cursor: pointer">
+					<div class="treatmentReviewDiseaseName">
+						{{disease.disease.name}}
+					</div>
+				</div>
+			</td>
+			<td width="60px" ng-show="$root.userLogged._id == userId">
+				<button class="btn btn-sm btn-default" ng-click="removeDisease(disease)" style="width: 100%;">
+					L&ouml;schen
+				</button>
+			</td>
+			
+		</tr>
+	</table>				
+</div>
+ -->
+<div class="section" style="padding: 2px; margin-bottom: 0px;">
+	<span class="sectiontitle">Aktuelle Behandlungen: {{currentCount}}</span>
+	<span ng-show="(loggedUserState == 'unverified') && (user._id == loggedUserId)" id="popover1" rel="popover" data-content="Diese Behandlungsbewertung ist nur f&uuml;r Sie sichtbar. Best&auml;tigen Sie bitte zuerst Ihr Konto. Sie haben hierzu eine E-Mail mit einem Aktivierungslink erhalten." data-original-title="Nicht aktiv"><a class="sectiontitle" style="cursor: pointer" >Nicht aktiv</a></span>
+</div>
+<div class="row" ng-show="reviews.length" data-ng-repeat="disease in reviews">
+<div class="section" style="padding: 2px; margin-bottom: 0px;" ng-show="curedCount && disease.cured">
+	<span class="sectiontitle">Kuriert: {{curedCount}}</span>
+	<span ng-show="(loggedUserState == 'unverified') && (user._id == loggedUserId)" id="popover1" rel="popover" data-content="Diese Behandlungsbewertung ist nur f&uuml;r Sie sichtbar. Best&auml;tigen Sie bitte zuerst Ihr Konto. Sie haben hierzu eine E-Mail mit einem Aktivierungslink erhalten." data-original-title="Nicht aktiv"><a class="btn btn-xs pull-right" >Nicht aktiv</a></span>
+</div>
+	<div class="col-md-12">
+		<table width="100%" class="table" style="margin-bottom:2px">
+			<thead>
+				<tr>
+					<td colspan="3" class="noPaddingLeft itemTitle" style="padding-bottom:0px">{{disease.name | uppercase}}</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="review in disease.treatmentreviews">
+					<td class="noPaddingLeft" width="30%">
+						<a ng-click="selectReview(review)" class="sectiontitle" style="cursor: pointer">{{review.treatment.name}}</a>
+						<div class="details" ng-show="review.event">{{review.event | fmtTreatmentEvent}}</div>
+					</td>
+					<td nowrap><kur-rating value="{{review.rating}}" hide-number="true"/></td>
+					<td width="80px">
+					<table style="margin-top:-10px">
+						<tr>
+							<td title="Anzahl KURAVIS Herzen für besonders nützliche Bewertungen" class="">
+								<ng-votescount value="{{review.votesCount || 0}}"></ng-votescount>
+							</td>
+							<td title="Anzahl Kommentare für diese Bewertung" class="padding10">
+								<ng-commentscount value="{{review.reviewCommentsCount || 0}}"></ng-commentscount>
+							</td>
+						</tr>
+					</table>
+					</td>
+					<td class="noPaddingRight" width="180px" ng-show="((review.author._id == loggedUserId) && (loggedUserState != 'unverified'))">
+						<button class="btn btn-xs btn-default pull-right" ng-click="openDeletion(review)">L&ouml;schen</button>
+						<button class="btn btn-xs btn-default pull-right" ng-click="editReview(review)">Bearbeiten</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div> 
+
+<!-- 
+<div class="section" ng-show="userEvents.length">
+	<div class="sectiontitle">Kommentare und Avis</div>
+		<table width="100%">
+			<tr>
+				<td width="50%">
+					<div class="historyScroll">
+						<table class="table-events" infinite-scroll='userEventsNextPage()'
+							infinite-scroll-disabled='userEventsBusy'
+							infinite-scroll-distance='1' width="100%">
+							<tr ng-repeat="event in userEvents track by event._id" width="100%">
+							  <td width="35px" valign="top">
+							  	<div class="eventIcon">
+							 	 <img src="/assets/images/vvis.png" ng-show="event.type == 'vote'">
+							 	 <img src="/assets/images/kommentar.png" ng-show="event.type == 'comment'">
+							 	 </div>
+							  </td>
+							  <td align="left">		
+									<div class="media">
+										<div class="media-body">
+												<div class="media-heading, reviewCommentTitleText">
+													<div ng-show="event.type == 'comment'">Kommentare</div>
+													<div ng-show="event.type == 'vote'">Avis</div>
+												</div>
+												<span class="reviewCommentSubtitleText">
+													<a ng-href="/Bewertung/{{event.treatmentReviewId}}" ng-show="event.type == 'comment'">{{event.text}}</a>
+													<a ng-href="/Bewertung/{{event.treatmentReviewId}}" ng-show="event.type == 'vote'">Bewertung</a>
+												</span>
+										</div>
+									</div>
+								</td>								
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+</div>
+ -->
+<div class="section">
+	<div class="sectiontitle">Status</div>
+	<div class="sectionbody">
+		<div class="statusLine">
+			<div class="statusLineTitle">
+				Mitglied seit: 
+			</div>
+			<div class="statusLineValue">
+				{{user.registrationDate | toLocaleDateString}}
+			</div>
+		</div>
+		<div class="statusLine">
+			<div class="statusLineTitle">
+				Nutzerkonto: 
+			</div>
+		<div class="statusLineValue">
+			{{userVerified? 'Verifiziert':'Noch nicht verifiziert'}}
+			</div>
+		</div>
+		<div class="statusLine">
+			<div class="statusLineTitle">
+				Letzter Login: 
+			</div>
+			<div class="statusLineValue">
+				{{user.lastLoginDate | toLocaleString}}
+			</div>
+		</div>
+</div>
+
+
+
+<div modal="doDeleteReview" class="modal fade" id="deleteReviewModal"
+	tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="closeDeletion()"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Bewertung f&uuml;r {{reviewToDelete.disease.name}}
+					{{reviewToDelete.treatment.name}} l&ouml;schen?</h4>
+			</div>
+			<div class="modal-body">Sind Sie sicher? Dieser Vorgang kann nicht mehr r&uuml;ckg&auml;ngig gemacht werden.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					ng-click="closeDeletion()">Schliessen</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="deleteReview()">L&ouml;schen</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div modal="doTreatmentHeardFrom" class="modal fade"
+	id="treatmentHeardFromModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<h3>Woher haben Sie von dieser Behandlung geh&ouml;rt?</h3>
+
+				<label class="radio inline"> <input type="radio"
+					name="radTreatmentHeardFrom" value="doctor"
+					ng-model="diseaseToTreatmentHeardFrom.treatmentHeardFrom" /> Arzt
+				</label> <label class="radio inline"> <input type="radio"
+					name="radTreatmentHeardFrom" value="friend"
+					ng-model="diseaseToTreatmentHeardFrom.treatmentHeardFrom" /> Freunde
+				</label> <label class="radio inline"> <input type="radio"
+					name="radTreatmentHeardFrom" value="internet"
+					ng-model="diseaseToTreatmentHeardFrom.treatmentHeardFrom" /> Internet
+				</label> <label class="radio inline"> <input type="radio"
+					name="radTreatmentHeardFrom" value="kuravis"
+					ng-model="diseaseToTreatmentHeardFrom.treatmentHeardFrom" /> Kuravis
+				</label> <label class="radio inline"> <input type="radio"
+					name="radTreatmentHeardFrom" value="other"
+					ng-model="diseaseToTreatmentHeardFrom.treatmentHeardFrom" /> Von woanders her
+				</label>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary"
+					ng-click="closeTreatmentHeardFrom()">OK</button>
+			</div>
+		</div>
+	</div>
+</div>

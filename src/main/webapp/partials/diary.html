@@ -1,0 +1,230 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li><a href="/Nutzer/{{user._id}}">{{user.name}}</a></li>
+  <li id="breadCrumbView" class="active"></li>
+</ol>
+
+<h4 ng-if="$root.userLogged==null" class="text-info">Sie müssen angemeldet sein.</h4>
+
+<div class="row">
+	<div class="col-md-8">
+		<ng-title class="ng-scope ng-isolate-scope" text="Tagebuch von {{user.name}}"></ng-title>
+	</div>
+	<div class="col-md-4">
+		<div class="pull-right form-inline">
+			<button class="btn btn-primary" ng-show="isDiaryEditable" ng-click="showNewEventModal()">Neuer Eintrag</button>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-9">
+		<div class="" >
+				<button class="btn btn-inactive btn-icon-chevron-left calendar-nav calendar-nav-left" data-calendar-nav="prev">&nbsp;</button>
+				<button class="btn btn-inactive btn-icon-chevron-right calendar-nav calendar-nav-right" data-calendar-nav="next">&nbsp;</button>
+				<div id="subtitle" class="calendar-subtitle" style="display: inline-block;"></div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<button class="pull-right btn btn-primary" data-calendar-nav="today">Heute</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div id="calendar"></div>
+	</div>
+</div>
+<br>
+<br>
+
+<div modal="selectEvent" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">Neuer Eintrag</div>
+
+				<div class="buttonEventCreate" ng-click="selectEvent = false; go('Nutzenbewertung');">
+					<img src="/assets/images/events/e1.png"> Bewertung
+				</div>
+				<div class="buttonEventCreate" ng-click="selectEvent = false; showNoteModal(true)">
+					<img src="/assets/images/events/e2.png"> Tagebuch
+				</div>
+				<div class="buttonEventCreate" ng-click="selectEvent = false; go('Nutzenbewertung');">
+					<img src="/assets/images/events/e3.png"> Behandlung
+				</div>
+				<div class="buttonEventCreate" ng-click="selectEvent = false; showWeightModal(true)">
+					<img src="/assets/images/events/e4.png"> Gewicht
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" ng-click="selectEvent = false">Abbrechen</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div modal="addWeight" class="modal fade" id="addWeightModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">{{eventToEdit ? 'Gewicht ändern' : 'Neuer Eintrag'}}</div>
+				<form class="form-inline" role="form" name="myForm">
+				<div class="row">
+					<div class="col-sm-2">Datum</div>
+					<div class="col-sm-10">
+						<input id="weightDate" class="datepicker" placeholder="Datum" type="text" value="" size="16" readonly required/> 
+						<label class="add-on">
+							<img src="/assets/images/calendar.png">
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">Gewicht</div>
+					<div class="col-sm-10">
+						<num-input ng-model="newWeight" placeholder="Gewicht" required/>
+						<input type="text" value="kg" disabled="disabled" style="width: 30px;" />
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="hideWeightModal()">Abbrechen</button>
+				<button class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="saveWeightEvent()">Speichern</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div modal="addDiaryEntry" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">{{eventToEdit ? 'Tagebucheintrag ändern' : 'Neuer Eintrag'}}</div>
+				<!--
+				<div class="row">
+				<table class="pull-right">
+					<tr align="center" valign="bottom">
+						<td><div ng-click="toStep(1)" ng-class="stepClassInfo(1)"><span>1</span></div></td>
+						<td><div ng-click="toStep(2)" ng-class="stepClassInfo(2)"><span>2</span></div></td>
+					</tr>
+					<tr>
+						<td><div ng-class="stepProgressClassInfo(1)"></div></td>
+						<td><div ng-class="stepProgressClassInfo(2)"></div></td>
+					</tr>
+				</table>
+				</div>
+				-->
+				<form class="form-inline" role="form" name="myForm">
+				<div class="row">
+					<div class="col-sm-12 form-group">
+						<div class="text-danger" ng-show="myForm.$submitted && myForm.title.$error.required">Pflichtfeld</div>
+						<img class="pull-left" style="padding-top:5px" src="/assets/images/events/e2.png"><input ng-model="newTitle" name="title" required class="pull-right" placeholder="Tagebuch Titel" maxlength="100" style="width: 96%"></input>
+					</div>
+				</div>
+				<div class="row" style="margin-top:10px">
+					<div class="col-sm-12 form-group">
+						<div class="text-danger" ng-show="myForm.$submitted && myForm.txt.$error.required">Pflichtfeld</div>
+						<textarea ng-model="newText" class="input-xxlarge background-color-white resizeForbidden" name="txt" required placeholder="Tagebuch Eintrag" maxlength="{{maxLengthText}}" style="height:80px;width:100%"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div ng-show="!newText" class="col-sm-12 ">
+						<span class="pull-right">Max. {{maxLengthText}} Zeichen</span>
+					</div>
+					<div ng-show="newText" class="col-sm-12 pull-right">
+						<span class="pull-right">Noch {{-(newText.length - maxLengthText)}} Zeichen</span>
+					</div>
+				</div>
+				<div class="row details">
+					<div class="col-sm-4">Datum</div>
+					<div class="col-sm-8">Zeit</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<input id="noteDate" class="datepicker input-small" placeholder="Datum" type="text" value="" size="16" readonly required/> 
+						<label class="add-on">
+							<img src="/assets/images/calendar.png">
+						</label>
+					</div>
+					<div class="col-sm-8  bootstrap-timepicker">
+						<input id="timepicker" type="text" class="input-small" size="6" placeholder="Zeit" required>
+					</div>				
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="hideNoteModal()">Abbrechen</button>
+				<button class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="submitted=true;saveNoteEvent()">Speichern</button>
+			</div>
+		</div>
+	</div>
+</div>
+				<!-- <button class="btn btn-xs btn-primary btn-icon-chevron-right" ng-click="toStep(2)">Weiter</button> -->
+
+<div modal="addDiaryEntryFiles" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">Neuer Eintrag</div>
+				<div class="row">
+				<table class="pull-right">
+					<tr align="center" valign="bottom">
+						<td><div ng-click="toStep(1)" ng-class="stepClassInfo(1)"><span>1</span></div></td>
+						<td><div ng-click="toStep(2)" ng-class="stepClassInfo(2)"><span>2</span></div></td>
+					</tr>
+					<tr>
+						<td><div ng-class="stepProgressClassInfo(1)"></div></td>
+						<td><div ng-class="stepProgressClassInfo(2)"></div></td>
+					</tr>
+				</table>
+				</div>
+				<div class="row" style="margin-top:10px">
+					<div class="col-sm-12 drop-box" ng-show="dropSupported" style="height:104px;width:100%;padding-top:16px" ng-file-drop="onFileSelect($files);" kur-file-drop-available="dropSupported=true">
+					<span>Drop files here to atache them</span><br/>
+					<span>or</span><br/>
+					<input class="center-block" type="file" ng-file-select="onFileSelect($files)" multiple/>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="hideNoteModal()">Abbrechen</button>
+				<button class="btn btn-primary" ng-click="createNoteEvent()">Speichern</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div modal="firstTimeInfo" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">Willkommen in Ihrem KURAVIS Tagebuch</div>
+				<div class="row">
+Hier können Sie bis auf die Minute genau Ihre Gesundheitsaktivitäten, Biodaten (Gewicht, Blutdruck etc.), Ihr Befinden und Ihre Behandlungen sowie Medikamenteneinnahmen protokollieren.
+ Auch werden automatisch Zeiträume von Behandlungen aus Ihren Bewertungen in Ihr Tagebuch übernommen, wenn Sie diese optionalen Angaben vornehmen. <br /><br /> 
+
+Ihr Tagebuch ist für andere KURAVIS-Mitglieder nur einsehbar, wenn Sie in Ihren Einstellungen Ihr Tagebuch öffentlich machen.
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="firstTimeInfo = false">Schliessen</button>
+			</div>
+		</div>
+	</div>
+</div>

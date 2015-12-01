@@ -1,0 +1,413 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="richSnippet">
+	<div itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+		<span itemprop="itemreviewed">{{diseaseName}} {{treatmentName}}</span>
+		<span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
+			<meta itemprop="best" content="1"/>  
+      		<meta itemprop="worst" content="6"/>
+			<span itemprop="average">{{summary.rating | ratingSingleValue}}</span>
+		</span>
+		based on <span itemprop="votes">{{numberOfRatings}}</span> ratings.
+		<!-- <span itemprop="count">5</span> user reviews. -->
+	</div> 
+</div>
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li><a href="/{{diseaseName  | urlEncode}}">{{diseaseName | uppercase}}</a></li>
+  <li class="active">{{treatmentName}}</li>
+</ol>
+
+<shared-disease-component></shared-disease-component>
+<div class="visible-xs">
+	<div class="row">
+		<div class="title" style="margin-bottom: 0px;">{{treatmentName}}
+			<a class="btn btn-xs btn-icon-follow" ng-click="follow(true)" ng-hide="followItemId" data-toggle="tooltip" data-placement="bottom" title="{{followTooltip}}">Folgen</a>
+			<a class="btn btn-xs btn-icon-follow" ng-click="follow(false)" ng-show="followItemId">Nicht folgen</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6" style="margin-left:-3px;padding-top: 0px;">
+			<kur-rating hide-text="true" value="{{rating}}" />
+		</div>
+		<div class="col-xs-6">
+			<button class="btn btn-xs pull-right btn-icon-chevron-right" ng-click="createReview()" ng-show="buttonText">{{buttonText}}</button>
+		</div>
+	</div>
+</div>
+<div class="hidden-xs">
+	<div class="row">
+		<div class="col-sm-8 col-md-8 title" style="margin-bottom: 0px;">{{treatmentName}}
+			<a class="btn btn-xs btn-icon-follow" ng-click="follow(true)" ng-hide="followItemId" data-toggle="tooltip" data-placement="bottom" title="{{followTooltip}}">Folgen</a>
+			<a class="btn btn-xs btn-icon-follow" ng-click="follow(false)" ng-show="followItemId">Nicht folgen</a>
+		</div>
+		<div class="col-sm-4 col-md-4" style="padding-top: 4px;">
+			<kur-rating class="pull-right" value="{{rating}}" />
+		</div>
+	</div>
+	<div class="row">
+		<button class="btn btn-xs pull-right btn-icon-chevron-right" ng-click="createReview()" ng-show="buttonText">{{buttonText}}</button>
+	</div>
+</div>
+
+<!-- Data for small screens -->
+
+<div class="charts">
+	<div class="visible-xs">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">Benotungen<a class="pull-right" id="popover1" rel="popover" data-content="Die Bewertung zeigt Ihnen eine Zusammenfassung nach Benotung, Nebenwirkungen, Kosten, Dauer, Geschlecht und Altersstruktur." data-original-title=""><img src="../assets/images/info_inactive.png" class="infoIcon"></a></div>
+					<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="char1data">
+						Noch keine Daten
+					</div>
+					<div id="infographic11" class="" ng-hide="!char1data">
+						<div class="chart"></div>
+						<div class="ratingsTotalAmount">Total {{numberOfRatings}} Bewertungen</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="section background-color marginBottom5">
+					<div class="sectiontitle">Kosten</div>
+					<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="costsStatisticsDataAvailable">
+						Noch keine Daten
+					</div>
+					<div id="infographic41" ng-hide="!costsStatisticsDataAvailable">
+						<div class="chart"></div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">Dauer der Behandlung</div>
+					<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="treatmentDurationStatisticsDataAvailable">
+						Noch keine Daten
+					</div>
+					<div id="infographic52" class="chart" ng-hide="!treatmentDurationStatisticsDataAvailable">
+						<div class="chart chartsmall"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">
+						Nebenwirkungen
+						<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="char2data">
+							Noch keine Daten
+						</div>
+					</div>
+					<div id="infographic21" class="" ng-hide="!char2data">
+						<div class="chart"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="chartsubsection, section marginBottom5">
+				<div class="sectiontitle">Geschlecht</div>
+				<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="charGenderData">
+					Noch keine Daten
+				</div>
+				
+				<div class="chart" style="padding-top: 20px;">
+					<table>
+						<tr>
+							<td>
+								<div style="position:relative;">
+									<div class="progress-container">
+    									<span style="background:#33627c" ng-style="{width: manScale}"></span>
+    								</div>
+    								<img src="/assets/images/gender_man.png" style="position:absolute; top:0px;">
+   								</div>
+							</td>
+							<td>
+								<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.man}} %</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div style="position:relative;">
+									<div class="progress-container">
+    									<span style="background:#c95b60" ng-style="{width: womanScale}"></span>
+									</div>
+									<img src="/assets/images/gender_woman.png" style="position:absolute; top:0px;">
+								</div>	
+							</td>
+							<td>
+								<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.woman}} %</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="progress-container progress-container-clean genderDataUnknown">
+									Unbekannt
+								</div>
+							</td>
+							<td>
+								<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.unknown}} %</div>
+							</td>
+						</tr>
+					</table>
+												
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">Altersstruktur</div>
+					<div class="chartsmallsubtitle text-center genderDataUnknown" ng-hide="char3data">
+						Noch keine Daten
+					</div>
+					<div class="agechart" ng-hide="!char3data">
+						<div id="infographic31" class="">
+							<div class="chart"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Data for wide screens -->
+	
+	<div class="hidden-xs visible-sm">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 rowRightPadding">
+				<div class="section marginBottom5" style="height: 235px;">
+					<div class="sectiontitle">Bewertungen<a class="pull-right" id="popover2" rel="popover" data-content="Die Bewertung zeigt Ihnen eine Zusammenfassung nach Benotung, Kosten, Dauer, Nebenwirkungen, Geschlecht und Altersstruktur." data-original-title=""><img src="../assets/images/info_inactive.png" class="infoIcon"></a></div>
+					<div class="noData text-center genderDataUnknown" ng-hide="char1data">
+						Noch keine Daten
+					</div>
+					<div id="infographic12" class="" ng-hide="!char1data">
+						<div class="chart chartsmall"></div>
+						<div class="ratingsTotalAmount">Total {{numberOfRatings}}
+							{{numberOfRatings|formatNumberToString:'Bewertung'}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">Kosten</div>
+					<div class="noData text-center genderDataUnknown" ng-hide="costsStatisticsDataAvailable">
+						Noch keine Daten
+					</div>
+					<div id="infographic42" class="" ng-hide="!costsStatisticsDataAvailable">
+						<div class="chart"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6 col-sm-6 rowRightPadding">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">Dauer der Behandlung</div>
+					<div class="noData text-center genderDataUnknown" ng-hide="treatmentDurationStatisticsDataAvailable">
+						Noch keine Daten
+					</div>
+					<div id="infographic52" class="" ng-hide="!treatmentDurationStatisticsDataAvailable">
+						<div class="chart"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 noPaddingRight">
+				<div class="section marginBottom5">
+					<div class="sectiontitle">
+						Nebenwirkungen
+					</div>
+					<div class="noData text-center genderDataUnknown" ng-hide="char2data">
+						Noch keine Daten
+					</div>
+					<div id="infographic22" class=""  ng-hide="!char2data">
+						<div class="chart"></div>
+						<!-- <div id="reporting">123</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 rowRightPadding">
+								<div class="chartsubsection, section">
+									<div class="sectiontitle">Geschlecht</div>
+									<div class="noData text-center genderDataUnknown" ng-hide="charGenderData">
+										Noch keine Daten
+									</div>
+									<div class="chart" style="padding-top: 20px;">
+										<table>
+											<tr>
+												<td>
+													<div style="position:relative;">
+														<div class="progress-container">
+					    									<span style="background:#33627c" ng-style="{width: manScale}"></span>
+					    								</div>
+					    								<img src="/assets/images/gender_man.png" style="position:absolute; top:0px;">
+				    								</div>
+												</td>
+												<td>
+													<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.man}} %</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="position:relative;">
+														<div class="progress-container">
+					    									<span style="background:#c95b60" ng-style="{width: womanScale}"></span>
+														</div>
+														<img src="/assets/images/gender_woman.png" style="position:absolute; top:0px;">
+													</div>	
+												</td>
+												<td>
+													<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.woman}} %</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div class="progress-container progress-container-clean genderDataUnknown">
+														Unbekannt
+													</div>
+												</td>
+												<td>
+													<div class="chartLabel progress-container progress-container-clean pull-right"> {{genderData.unknown}} %</div>
+												</td>
+											</tr>
+										</table>
+																	
+									</div>
+								</div>
+						</div>
+								
+						<div class="col-md-6 col-sm-6 noPaddingRight">
+							<div class="chartsubsection section text-center">
+								<div class="sectiontitle">Altersstruktur</div>
+								<div class="noData text-center genderDataUnknown" ng-hide="char3data">
+									Noch keine Daten
+								</div>
+								<div class="agechart" ng-hide="!char3data">
+									<div id="infographic32" class="">
+										<div class="chart"></div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 
+<div class="row sort-group">
+	<div class="col-md-12">
+		<buttons-radio class="btn-group btn-group-default btn-group-xs" data-toggle="buttons-radio"
+			model='sortModel' options='sortOptions'></buttons-radio>
+	</div>
+</div>
+ -->
+ 
+<div class="row">
+	<div class="col-md-12">
+		<table class="table-strip" width="100%" border="0"
+			infinite-scroll='treatmentReviewNextPage()'
+			infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+			<thead>
+				<tr>
+					<th colspan="2">Nutzerbewertungen {{diseaseName | uppercase}} - {{treatmentName}}</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="review in reviews track by review._id">
+				<td style="background-color:white;border-color:white" class="visible-xs">
+						<div class="row">
+							<div class="col-xs-12 userheadertitle">{{review.author.name}}</div>
+						</div>
+						<div class="row">
+							<div class="details col-xs-12">
+								<span ng-show="review.author.yearOfBirth">{{review.author.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="((!((review.author.gender == null) || (review.author.gender == 'unknown') || (review.author.gender == ''))) && (review.author.yearOfBirth == null))">{{review.author.gender | formatGender}}</span><span ng-show="((!((review.author.gender == null) || (review.author.gender == 'unknown') || (review.author.gender == ''))) && (review.author.yearOfBirth != null))">, {{review.author.gender | formatGender}}</span>
+								<span ng-show="review.author.location"> aus {{review.author.location}}</span>
+							</div>
+						</div>
+						<div class="row" style="margin-left:-3px;margin-top:0px;">
+							<div class="col-xs-12"><kur-rating value="{{review.rating}}"/></div>
+						</div>
+						<!-- 
+						<div class="row">
+							<div class="col-xs-12"><ng-votescount value="{{review.votesCount || 0}}"></ng-votescount>
+							<ng-commentscount value="{{review.reviewCommentsCount || 0}}"></ng-commentscount>
+							</div>
+						</div> -->
+						<div class="row">
+							<div><a class="btn btn-xs pull-right noPaddingRight" style="padding-top:3px;" href="/{{review.disease.name | urlEncode}}/{{review.treatment.name | urlEncode}}/{{review._id}}">Bewertung ansehen</a></div>
+						</div>
+				</td>
+				<td style="background-color:white;border-color:white" class="hidden-xs">
+					 <table style="border:0" width="100%" >
+					 	<tr>
+							<td class="hidden-xs" nowrap="nowrap" width="40px">
+								<span class="hidden-xs pull-left">
+								<ng-avatar ng-href="/Nutzer/{{review.author._id}}" color="{{review.author.settings.profile.avatarColor}}" name="{{review.author.name.substring(0,1)}}"></ng-avatar></span>
+							<td class="padding10" valign="center" width="33%">
+								<div class="userheadertitle">{{review.author.name}}</div>
+								<div class="details hidden-xs">
+									<span ng-show="review.author.yearOfBirth">{{review.author.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="((!((review.author.gender == null) || (review.author.gender == 'unknown') || (review.author.gender == ''))) && (review.author.yearOfBirth == null))">{{review.author.gender | formatGender}}</span><span ng-show="((!((review.author.gender == null) || (review.author.gender == 'unknown') || (review.author.gender == ''))) && (review.author.yearOfBirth != null))">, {{review.author.gender | formatGender}}</span>
+									<span ng-show="review.author.location"> aus {{review.author.location}}</span>
+								</div>
+							</td>
+							<td nowrap="nowrap" width="250px"><kur-rating value="{{review.rating}}" hide-number="true"/></td>
+							<td width="80px" class="pull-right">
+								<table>
+									<tr>
+										<td title="Anzahl KURAVIS Herzen fĂĽr besonders nĂĽtzliche Bewertungen" class=""><ng-votescount value="{{review.votesCount || 0}}"></ng-votescount></td>
+										<td title="Anzahl Kommentare fĂĽr diese Bewertung" class="padding10"><ng-commentscount value="{{review.reviewCommentsCount || 0}}"></ng-commentscount></td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<a class="btn btn-xs pull-right noPaddingRight" style="padding-top:3px;" href="/{{review.disease.name | urlEncode}}/{{review.treatment.name | urlEncode}}/{{review._id}}">Bewertung ansehen</a>
+							</td>
+						</tr>
+					 	<tr style="height: 60px" ng-show="review.text">
+					 		<td colspan="5" style="background-color:white;">
+					 			<div style="width: 100%;" class="staticPopover bottom">
+					 				<div class="popover-content reviewCommentSubtitleText">
+										<pre class="text2linesOnly" >{{review.text || "Nicht bewertet"}}</pre>
+					 				</div>
+					 			</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>

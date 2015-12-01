@@ -1,0 +1,179 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li class="active">Einstellungen {{user.name}}</li>
+</ol>
+
+
+
+<div ng-hide="isLoggedUser">
+	<ng-title text="Please sign in."></ng-title>
+</div>
+
+<div ng-show="isLoggedUser" ng-init="initUser()">
+	
+	<ng-title text="Profil"></ng-title>
+	
+	<div class="section">
+			<div class="row"><label>Avatar</label></div>
+			<div class="row">
+				<div class="settingsAvatar">
+					<div class="row">
+						<div class="col-md-1 col-sm-1">
+						<ng-avatar class="pull-left" color="{{user.settings.profile.avatarColor}}" name="{{user.name.substring(0,1)}}"></ng-avatar>
+						</div>
+						
+						<div class="col-md-11 col-sm-11 hidden-xs">
+						<ng-coloor-picker model-object="user" model-array="settings" model-subarray="profile" model-property="avatarColor"></ng-coloor-picker>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 visible-xs">
+						<ng-coloor-picker-small model-object="user" model-array="settings" model-subarray="profile" model-property="avatarColor"></ng-coloor-picker-small>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			
+			<div class="visible-xs" style="height:60px">&nbsp;</div>
+			<br>
+			<div class="row"><label>Name</label></div>
+			<div class="row">
+				<input class="settingsInput" type="text" placeholder="Name and surname" ng-model="user.name">
+			</div>
+			
+			<div class="row"><label>&Uuml;ber mich</label></div>
+			<div class="row">
+				<textarea class="settingsTextArea" rows="5" placeholder="Dies ist Ihr &quot;&Uuml;ber mich&quot; Text. Sie k&ouml;nnen diesen nach Ihren Vorstellungen anpassen." ng-model="user.aboutMe"></textarea>
+			</div>
+			
+			<div class="row"><label>Geschlecht</label></div>
+			<div class="row">
+				<select class="settingsInput" ng-model="user.gender">
+					<option style="color:white;font-size:0px;display:none;" disabled >Auswahl treffen</option>
+					<option value="male">M&auml;nnlich</option>
+					<option value="female">Weiblich</option>
+				</select>
+			</div>
+			
+			<div class="row"><label>Jahrgang</label></div>
+			<div class="row">
+				<select class="settingsInput" id="selYears" ng-init="initYears()" ng-model="user.yearOfBirth" ng-options="obj.id as obj.name for obj in list_years" ng-change="selectYearsAction()">    
+   				</select>
+			</div>
+			
+			<div class="row"><label>Standort</label></div>
+			<div class="row">
+				<input class="settingsInput" type="text" placeholder="Standort eingeben" ng-model="user.location">
+			</div>
+			<div class="row">
+				<div class="checkbox">
+        			<label>
+          				<input type="checkbox" id="diaryPrivacy" ng-checked="user.settings.profile.diaryPublic"  ng-model="user.settings.profile.diaryPublic">Tagebuch allen registrierten Nutzern anzeigen
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<button type="button" class="btn btn-primary pull-right" ng-click="updateUserProfile()">Profil aktualisieren</button>
+			</div>
+	</div>
+	
+	<ng-title text="Konto"></ng-title>
+
+	<div class="section">
+		<div class="row"><label>Email</label></div>
+		<div class="row">
+			<input class="settingsInput" type="text" placeholder="Email" ng-model="user.email">
+		</div>
+		<div class="row">
+			<button type="submit" class="btn btn-primary" ng-click="changeEmail()">E-Mail &auml;ndern</button>
+		</div>
+	</div>
+	<div class="section">
+		<div class="row"><label>Passwort (min 4, max 12 Zeichen)</label></div>
+		<div class="row">
+			<input class="settingsInput" type="password" placeholder="Neues Passwort" ng-model="newPassword" ng-change="validatePassword()">
+			<br>
+			<input class="settingsInput" type="password" placeholder="Passwort wiederholen" ng-model="confirmPassword" ng-change="validatePassword()">
+		</div>
+		<div class="row">
+			<button type="submit" class="btn btn-primary" ng-disabled="disablePasswordChange" ng-click="changePassword()">Passwort &auml;ndern</button>
+		</div>
+	</div>
+	<div class="section">
+			<div class="row"><label>Konto dauerhaft l&ouml;schen</label></div>
+			<div class="row text-danger">
+				Sind Sie sicher, dass Sie Ihr Konto dauerhaft l&ouml;schen m&ouml;chten?
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-primary" data-toggle="modal" ng-click="doDeleteAccount=true">L&ouml;schen</button>
+			</div>
+	</div>
+		
+	<ng-title text="Benachrichtigungen"></ng-title>
+	
+	<div class="section">
+			<div class="row">
+				<div class="checkbox">
+					<input type="checkbox" ng-checked="user.settings.privacySettings.emailNotification.weeklyUpdatesCommentsAndVotes" ng-model="user.settings.privacySettings.emailNotification.weeklyUpdatesCommentsAndVotes"> AVIS (Hilfreiche Stimmen) / Kommentar von KURAVIS
+				</div>
+				<div class="checkbox">
+					<input type="checkbox" ng-checked="user.settings.privacySettings.emailNotification.news_announcements" ng-model="user.settings.privacySettings.emailNotification.news_announcements"> News + Mitteilungen von KURAVIS
+				</div>
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btn-primary" ng-click="updatePrivacy()">Benachrichtigungen aktualisieren</button>
+			</div>
+	</div>
+	
+	<ng-title text="Folgen"></ng-title>
+	<div class="section">
+		<div class="row" ng-repeat="follow in follows">
+			<div class="col-xs-12 col-sm-10 col-md-10">
+				{{ follow.entityType | fmtFollowEntityType }}: <strong>{{follow.text }}</strong>, gefolgt seit {{ follow.createdOn | toLocaleString}}
+			</div>
+			<div class="col-xs-12 col-sm-2 col-md-2">
+				<button class="btn btn-xs btn-primary pull-right" ng-click="unfollow(follow._id,$index)">Nicht folgen</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 
+<kur-confirm title="title" question="naozaj?" confirmAction="unfollow" confirmModal="confirmModal"/>
+ -->
+
+<div modal="doDeleteAccount" class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close"  ng-click="closeDeletion()" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Konto dauerhaft l&ouml;schen</h4>
+      </div>
+      <div class="modal-body">
+        Sind Sie sicher?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeDeletion()">Schliessen</button>
+        <button type="button" class="btn btn-primary"  ng-click="deleteAccount()">L&ouml;schen</button>
+      </div>
+    </div>
+  </div>
+</div>

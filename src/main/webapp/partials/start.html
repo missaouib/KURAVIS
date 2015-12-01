@@ -1,0 +1,246 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="start_wrap" id="wrap1" style="text-align:center;">
+
+	<div class="container visible-xs">
+		<div class="row">
+			
+			<div class="col-xs-10">
+				<div class="start_invitation_text1" style="padding-top:30px;"><b>GESUNDHEIT</b> IN IHREN HÄNDEN</div>
+				<div class="start_invitation_text2" style="padding-top:20px;">Gesundheitsratschl&auml;ge teilen und Tagebuch f&uuml;hren</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="start_invitation_button pull-right" style="padding-top:45px;">
+					<a style="color:#fff; font-size:1.4em; font-family: SourceSansProExtraLight; padding: 5px 20px 5px 20px; border-radius: 1px; text-decoration: none;" href="" ng-click="signup()">+</a>
+				</div>
+			</div>
+		</div>
+	</div>
+ 	<div class="container visible-sm visible-md visible-lg">
+		<div class="row">
+			<div class="col-md-7 col-sm-7 col-xs-0">
+			
+			</div>
+			<div class="col-md-5 col-sm-5 col-xs-12 pull-left">
+				<div class="start_invitation_text1" style="padding-top:150px;"><b>GESUNDHEIT</b> IN IHREN HÄNDEN</div>
+				<div class="start_invitation_text2" style="padding-top:30px;">Gesundheitsratschl&auml;ge teilen und Tagebuch f&uuml;hren</div>
+			
+				<div class="start_invitation_button" style="padding-top:60px;">
+					<a style="color:#fff; font-size:1.4em; font-family: SourceSansProExtraLight; padding: 5px 20px 5px 20px; border-radius: 1px; text-decoration: none;" href="" ng-click="signup()">Kostenlos teilnehmen</a>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="container visible-xs visible-sm">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12" style="color: #fff; text-align:left; font-size:1.2em; line-height: 1em; font-family: SourceSansProLight; margin-top:100px;">Neue Nutzenbewertungen</div>
+		</div>
+	</div>
+	
+	<div class="visible-xs" style="background-color: rgba(255,255,255,0.75); margin-top:10px; padding: 10px 0 10px 0;">
+		<div class="container">
+			<div class="row" style="font-family: SourceSansProLight; font-size:1em;">
+				<div class="">
+					<div class="row pull-left" >
+							<a ng-show="!trs0.suggestion" href="/{{trs0.disease.name}}/{{trs0.treatment.name}}">{{trs0.disease.name}} - {{trs0.treatment.name}}</a>
+							<span ng-show="trs0.suggestion">{{trs0.disease.name}} - {{trs0.treatment.name}}</span>
+					</div>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="">
+					<div class="row">
+						<div style="position: relative; left: -4px; ">
+							<kur-rating-light value="{{trs0.suggestion?'':trs0.rating}}"/>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="">
+					<div class="row pull-left" style="font-family: SourceSansProExtraLight; font-size:1em; padding-top: 0px; overflow: hidden;">
+						{{trs0.lastChanged}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="visible-sm" style="background-color: rgba(255,255,255,0.75); margin-top:10px; padding: 10px 0 10px 0;">
+		<div class="container">
+			<div class="row" style="font-family: SourceSansProLight; font-size:1em;">
+				<div class="col-md-7 col-sm-7 col-xs-7">
+					<div class="row pull-left" >
+							<a ng-show="!trs0.suggestion" href="/{{trs0.disease.name}}/{{trs0.treatment.name}}">{{trs0.disease.name}} - {{trs0.treatment.name}}</a>
+							<span ng-show="trs0.suggestion">{{trs0.disease.name}} - {{trs0.treatment.name}}</span>
+					</div>
+					
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-3">
+					<div class="row">
+						<div style="position: relative; left: -4px; ">
+							<kur-rating-light value="{{trs0.suggestion?'':trs0.rating}}"/>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-2">
+					<div class="row pull-right" style="font-family: SourceSansProExtraLight; font-size:1em; padding-top: 0px; overflow: hidden;">
+						{{trs0.lastChanged}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container visible-md visible-lg">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12" style="color: #fff; text-align:left; font-size:1.2em; line-height: 1em; font-family: SourceSansProLight; margin-top:290px;">Neueste Nutzenbewertungen</div>
+		</div>
+	</div>
+	<div class="visible-md visible-lg" style="background-color: rgba(255,255,255,0.75); margin-top:10px; padding: 10px 0 10px 0;">
+		<div class="container">
+			<div class="row" ng-repeat="trs in trss" style="font-family: SourceSansProLight; font-size:1em;">
+				<div class="col-md-7 col-sm-7 col-xs-7">
+					<div class="row pull-left" >
+							<a ng-show="!trs.suggestion" href="/{{trs.disease.name}}/{{trs.treatment.name}}">{{trs.disease.name}} - {{trs.treatment.name}}</a>
+							<span ng-show="trs.suggestion">{{trs.disease.name}} - {{trs.treatment.name}}</span>
+					</div>
+					
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-3">
+					<div class="row">
+						<div style="position: relative; left: -4px; ">
+							<kur-rating-light value="{{trs.suggestion?'':trs.rating}}"/>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-md-2 col-sm-2 col-xs-2">
+					<div class="row pull-right" style="font-family: SourceSansProExtraLight; font-size:1em; padding-top: 0px; overflow: hidden;">
+						{{trs.lastChanged}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--  <div class="scroll_down_button" ng-click="scroll(2)">
+		<img src="/assets/images/scrolling_down_big.png" style="" />
+	</div> -->
+</div>
+
+<div class="start_wrap" id="wrap2" style="text-align: center;">
+	<div id="main_content2" class="container">
+		<div class="start_title">KURAVIS Idee</div>
+		<div class="start_subtitle">Lernen Sie in 60 Sekunden die Vorteile von KURAVIS kennen</div>
+		<iframe style="margin: auto;" id="ytplayer" type="text/html" width="100%" height="480" src="https://www.youtube.com/embed/Thk05Qp8-X4" frameborder="0"
+			allowfullscreen></iframe>
+	</div>
+</div>
+
+<div class="start_wrap" id="wrap3">
+	<div class="container">
+		<alert ng-cloak class="ng-cloak" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+		<div class="start_title">KURAVIS Gesundheitsverzeichnis</div>
+		<div class="start_subtitle">Ratschl&auml;ge finden und Behandlungen bewerten</div>
+
+		<form class="form-search">
+			<input id="search" class="mainPageInput"
+				style="background-color: #FAF5F2; border-style: solid; border: solid 1px black; margin: 5px 5px 5px 0px; padding: 5px; border-width: 1px;"
+				ng-change="initSearch()" type="text" ng-model="phrase" placeholder="Gesundheitsanliegen eingeben">
+		</form>
+
+		<div class="treatmentLetters">
+			<a ng-click="reloadLetter(l)" class="treatmentLetter" style="cursor: pointer" ng-class="objStyle(l)?'bigLetter':''" ng-repeat="l in letters"> {{l}} </a>
+		</div>
+		<div class="dictionaryTableRow">
+			<div ng-repeat="obj in tableData" class="col-md-6" style="padding-left: 0px">
+				<div ng-style="{backgroundColor: (((($index + 4)%4)==0) || ((($index + 3)%4)==0))? 'rgb(250, 245, 242)':'#FFFFFF'}">
+					<a ng-show="!obj.suggestion" href="/{{obj.disease}}/{{obj.treatment}}" class="dictionaryTreatment">{{obj.disease | uppercase}} - {{obj.treatment}}</a>
+					<span ng-show="obj.suggestion" class="dictionaryTreatment">{{obj.disease | uppercase}} - {{obj.treatment}}</span>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+		<table ng-show="steps" style="margin:auto;margin-top:20px;">
+			<tr align="center" valign="bottom">
+				<td ng-repeat="step in steps" >
+					<div ng-click="toStep(step)" ng-class="stepClassInfo(step)" style="cursor:pointer">
+						<span>{{step}}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td ng-repeat="step in steps"><div ng-class="stepProgressClassInfo(step)" style="cursor:pointer"></div></td>
+			</tr>
+		</table>
+
+
+	</div>
+</div>
+
+<div class="start_wrap" id="wrap4">
+	<div class="container">
+		<div class="start_title">Medien</div>
+		<div class="start_subtitle">Verbinden Sie sich mit uns &uuml;ber soziale Netzwerke</div>
+		
+		<div style="margin: auto"> 
+		 	<div style="margin-right: 20px; float: left; margin-bottom: 20px; border:0;">
+		 		
+				<div class="facebookOuter">
+				  <div class="fb-like-box" 
+				      data-width="400" data-height="625" 
+				      data-href="http://www.facebook.com/pages/?" 
+				      data-show-border="false" data-show-faces="false" 
+				      data-stream="true" data-header="false" data-colorscheme="light" data-layout="button_count">
+				  </div>          
+				</div>
+				           
+				<div id="fb-root"></div>
+				
+				<script>(function(d, s, id) {
+				  var js, fjs = d.getElementsByTagName(s)[0];
+				  if (d.getElementById(id)) return;
+				  js = d.createElement(s); js.id = id;
+				  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+				  fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+				</script>
+		 	</div>
+		  	
+			<div style="width: 400px; height:600px; float: left; margin-bottom: 20px;" class="hidden-xs">
+				<a class="twitter-timeline" href="https://twitter.com/springcentral" data-widget-id="">Tweets from ?</a>
+				<script>
+					!function(d, s, id) {
+						var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+						if (!d.getElementById(id)) {
+							js = d.createElement(s);
+							js.id = id;
+							js.src = p + "://platform.twitter.com/widgets.js";
+							fjs.parentNode.insertBefore(js, fjs);
+						}
+					}(document, "script", "twitter-wjs");
+				</script>
+			</div>
+		</div>
+	</div>
+</div>

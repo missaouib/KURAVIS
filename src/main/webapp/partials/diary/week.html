@@ -1,0 +1,35 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="cal-week-box">
+	<div class="cal-offset1 cal-column"></div>
+	<div class="cal-offset2 cal-column"></div>
+	<div class="cal-offset3 cal-column"></div>
+	<div class="cal-offset4 cal-column"></div>
+	<div class="cal-offset5 cal-column"></div>
+	<div class="cal-offset6 cal-column"></div>
+	<div class="cal-row-fluid cal-row-head">
+		<% _.each(months, function(name) { %>
+			<div class="cal-cell1 <%= cal._getDayClass('week', start) %>" data-toggle="tooltip" title="<%= cal._getHolidayName(start) %>"><%= name %><br>
+				<small><span data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>" data-cal-view="day"><%= start.getDate() %> <%= cal.locale['ms' + start.getMonth()] %></span></small>
+			</div>
+			<% start.setDate(start.getDate() + 1); %>
+		<% }) %>
+	</div>
+	<hr>
+	<%= cal._week() %>
+</div>

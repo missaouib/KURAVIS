@@ -1,0 +1,82 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<div class="cal-month-day <%= cls %>">
+	<!-- <span class="pull-right" data-cal-date="<%= data_day %>" data-cal-view="day" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span> -->
+	<span data-cal-date="<%= data_day %>" data-cal-view="day" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
+	<% if (events.length > 0) { var event=events[0]; %>
+		<div class="events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
+			
+			<% if (reviewsCount > 0) { %>
+				<div class="cal-events-month-nums" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>"  style="cursor: pointer;">
+					<div class="pull-left event-icon-REVIEW cal-events-month-num" data-toggle="tooltip" data-original-title="
+					<% _.each(reviews, function(event){ %>
+						&nbsp;<%= event.disease.name %>&nbsp;<%= event.treatment.name %>&nbsp;<%= event.rating %>&#10;
+					<% }) %>
+				"></div>
+					
+					<div class="cal-events-month-num cal-events-month-num-number">
+						<%= reviewsCount %>
+					</div>
+				</div>
+			<% } %>
+			
+			<% if (notesCount > 0) { %>
+				<div class="cal-events-month-nums" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>"  style="cursor: pointer;">
+					<div class="pull-left event-icon-NOTE cal-events-month-num" data-toggle="tooltip" data-original-title="
+					<% _.each(notes, function(event){ %>
+						<%= event.title %>&#10;
+					<% }) %>
+					"></div>
+					
+					<div class="cal-events-month-num cal-events-month-num-number">
+						<%= notesCount %>
+					</div>
+				</div>
+			<% } %>
+			
+			<% if (votesCount > 0) { %>
+				<div class="cal-events-month-nums" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>"  style="cursor: pointer;">
+					<div class="pull-left event-icon-REVIEW_VOTE cal-events-month-num" data-toggle="tooltip" data-original-title="
+					<% _.each(votes, function(event){ %>
+						<%= event.disease.name %>&nbsp;<%= event.treatment.name %>&#10;
+					<% }) %>
+					"></div>
+					
+					<div class="cal-events-month-num cal-events-month-num-number">
+						<%= votesCount %>
+					</div>
+				</div>
+			<% } %>
+			
+			<% if (weightsCount > 0) { %>
+				<div class="cal-events-month-nums" data-cal-view="day" data-cal-date="<%= event.start_date_nav %>"  style="cursor: pointer;">
+					<div class="pull-left event-icon-WEIGHT cal-events-month-num" data-toggle="tooltip" data-original-title="
+					<% _.each(weights, function(event){ %>
+						<%= event.weight %>kg&#10;
+					<% }) %>
+					"></div>
+					
+					<div class="cal-events-month-num cal-events-month-num-number">
+						<%= weightsCount %>
+					</div>
+				</div>
+			<% } %>
+			
+		</div>
+	<% } %>
+</div>

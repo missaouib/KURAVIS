@@ -1,0 +1,86 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li><a href="/{{review.disease.name  | urlEncode}}">{{review.disease.name | uppercase}}</a></li>
+  <li><a href="/{{review.disease.name | urlEncode}}/{{review.treatment.name  | urlEncode}}">{{review.treatment.name}}</a></li>
+  <li><a href="/{{review.disease.name | urlEncode}}/{{review.treatment.name  | urlEncode}}/{{review._id}}">{{user.name}}'s Bewertung</a></li>
+  <li class="active">AVIS Stimmen</li>
+</ol>
+
+<ng-title text="AVIS Stimme für Bewertung von {{review.disease.name | uppercase}} - {{review.treatment.name}}" style="padding-top:20px;"></ng-title>
+
+<table width="100%">
+	<tr>
+		<td nowrap="nowrap" width="40px">
+			<ng-avatar class="pull-left" ng-href="/Nutzer/{{user._id}}" color="{{user.settings.profile.avatarColor}}" name="{{user.name.substring(0,1)}}"></ng-avatar>
+		</td>
+		<td class="padding10" valign="center">
+			<div class="userheadertitle">{{user.name}}</div>
+			<div class="details hidden-xs">
+				<span ng-show="user.yearOfBirth">{{user.yearOfBirth | getAgeFromYear}} Jahre alt</span><span ng-show="user.gender">, {{user.gender | formatGender}}</span>
+				<span ng-show="((!((user.gender == null) || (user.gender == 'unknown') || (user.gender == ''))) && (user.yearOfBirth != null))"></span>
+				<span ng-show="user.location"> aus {{user.location}}</span>
+			</div>
+		</td>
+		<td>
+			<ng-active-votes-count class="pull-right" value="{{votesCount || 0}}" url-prefix="{{review.disease.name}}/{{review.treatment.name}}" review-id="{{review._id}}"
+					vote="vote()"></ng-active-votes-count>
+		</td>
+	</tr>
+</table>
+
+<div class="section">
+	<div class="sectiontitle">{{votesCount}} Hilfreiche AVIS</div>
+	<table class="table-events">
+		<tr data-ng-repeat="vote in votes track by vote._id" >
+			<td class="visible-xs">
+				<table>
+					<tr>
+						<td>
+							<div class="">
+								<a href="/Nutzer/{{vote.user._id}}">{{vote.user.name}}</a> empfiehlt {{user.name}}'s Behandlungsbewertung
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<i>Avis hinzugef&uuml;gt {{vote.modifiedOn | fmtElapsedTimeFromNow}}</i>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td class="hidden-xs">		
+				<div class="media">
+					<a class="pull-left" data-ng-href="/Nutzer/{{vote.user._id}}">
+							<ng-avatar-small color="{{vote.user.settings.profile.avatarColor}}" name="{{vote.user.name.substring(0,1)}}"></ng-avatar-small>
+					</a>
+					<div class="media-body">
+						<div class="voterow">
+							{{vote.user.name}} empfiehlt {{user.name}}'s Behandlungsbewertung
+						</div>
+					</div>
+				</div>
+			</td>
+			<td align="left" class="hidden-xs voterow voteicon">
+				<img src="/assets/images/vvis.png"><i>Hilfreiche Avis hinzugef&uuml;gt {{vote.modifiedOn | fmtElapsedTimeFromNow}}</i>
+			</td>					
+		</tr>
+	</table>
+</div>
+

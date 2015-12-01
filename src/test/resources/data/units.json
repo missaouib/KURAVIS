@@ -1,0 +1,96 @@
+#-------------------------------------------------------------------------------
+# Copyright 2015 MobileMan GmbH
+# www.mobileman.com
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+[{
+	"_id":"67c91949-b5d7-48c8-abda-19ca6d73fdce",
+	"name":"Mikrogramm (mkg)"
+},
+{
+	"_id":"6391ef8c-6565-4035-8c64-81b08028bb4e",
+	"name":"Milligramm (mg)"
+},
+{
+	"_id":"b9dc6c7e-c013-4557-b3b0-e81f00543f63",
+	"name":"Gramm (g)"
+},
+{
+	"_id":"c455619c-6402-4ad2-a56a-8aa09e33ac26",
+	"name":"Kilogramm (kg)"
+},
+{
+	"_id":"6d945547-f866-463b-99e3-5f6728891f93",
+	"name":"Milliter (ml)"
+},
+{
+	"_id":"86759312-1f54-4128-b531-ffbd51d9cfac",
+	"name":"Deziliter (dl)"
+},
+{
+	"_id":"6bc68c74-4fc7-4aca-929a-cb8150887b4c",
+	"name":"Liter (L)"
+},
+{
+	"_id":"7dadda33-ff38-4c0a-b9f1-6d2728beb1ce",
+	"name":"Sekunden (s)"
+},
+{
+	"_id":"1f6d8b80-4dc8-4443-b348-5f5c03f57a15",
+	"name":"Minuten (min)"
+},
+{
+	"_id":"a3c1db9c-55fb-44c9-a209-eeb96cfb7acb",
+	"name":"Stunden (h)"
+},
+{
+	"_id":"9b6a4826-df38-4fe8-997b-3658612930a4",
+	"name":"Tag (d)"
+},
+{
+	"_id":"d93274b4-9157-48f7-82d9-fc25bd1eefa6",
+	"name":"Woche (w)"
+},
+{
+	"_id":"b338b727-7a76-4737-8648-296a1ae717f8",
+	"name":"Monat (m)"
+},
+{
+	"_id":"50af6cea-d0ad-4c96-90fe-e72d23871935",
+	"name":"Jahr (y)"
+},
+{
+	"_id":"72e2abbc-fafa-4615-bdbc-543b23d4057c",
+	"name":"Teelöffel"
+},
+{
+	"_id":"4bb51b1e-6e08-4366-a119-f8d599180f6c",
+	"name":"Esslöffel"
+},
+{
+	"_id":"14f944a3-ed30-4870-baa6-ffa53eb2cf71",
+	"name":"Millimeter (mm)"
+},
+{
+	"_id":"5f52326e-c4a0-42ea-b90c-dd0418514021",
+	"name":"Centimeter (cm)"
+},
+{
+	"_id":"ae5dca97-a7ae-4d6b-be92-5ae7efb5b62f",
+	"name":"Meter (m)"
+},
+{
+	"_id":"579bc7d6-84a0-414e-afa4-e886bd31c7a6",
+	"name":"Kilometer (km)"
+}]

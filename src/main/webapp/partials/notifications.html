@@ -1,0 +1,60 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li class="active">Beobachtungsliste {{userLogged.name}}</li>
+</ol>
+
+<ng-title text="Beobachtungsliste"></ng-title>
+<div ng-hide="$root.userLogged!=null">
+	<div class="text-center">
+		<br>
+		<h2>Bitte anmelden</h2>
+	</div>
+</div>
+<div class="section" ng-show="notifications.length">
+	<div class="sectiontitle">Beobachtungsliste
+	<div ng-show="notifications.length">
+		<table class="table-events" infinite-scroll='notificationsNextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+			<tr ng-repeat="notification in notifications" width="100%">
+				 <td width="35px" valign="top">
+				 	<div class="eventIcon">
+				 		<img src="/assets/images/vvis.png" ng-show="notification.type == 'treatment_review_vote'">
+					 	<img src="/assets/images/kommentar.png" ng-show="notification.type == 'treatment_review_comment'">
+				 	</div>
+				 </td>
+				 <td align="left">		
+					<div class="media">
+						
+						<a class="pull-left hidden-xs" href="/Nutzer/{{notification.user._id}}">
+								<ng-avatar-small color="{{notification.user.settings.profile.avatarColor}}" name="{{notification.user.name.substring(0,1)}}"></ng-avatar-small>
+						</a>
+						<div class="media-body">
+								<div class="media-heading, reviewCommentTitleText"><a href="/Nutzer/{{notification.user._id}}">{{notification.user.name}}</a> {{notification.user.yearOfBirth | getAgeFromYear | formatAgeAndGender:notification.user.gender}} </div>
+								<span class="reviewCommentSubtitleText">
+									<a ng-href="/Bewertung/{{notification.treatmentReviewId}}" ng-show="notification.type == 'treatment_review_comment'">{{notification.text}}</a>
+									<a ng-href=/"Bewertung/{{notification.treatmentReviewId}}" ng-show="notification.type == 'treatment_review_vote'">Bewertung</a>
+								</span>
+						</div>
+					</div>
+				</td>								
+			</tr>
+			<tr ng-show='notificationBusy'><td>Daten laden...</td></tr>
+		</table>
+	</div>
+</div>

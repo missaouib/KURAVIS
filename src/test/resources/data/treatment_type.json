@@ -1,0 +1,92 @@
+#-------------------------------------------------------------------------------
+# Copyright 2015 MobileMan GmbH
+# www.mobileman.com
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+[{
+	"_id":"f83d2510-2d44-43cf-8992-9717163c1ccb",
+	"name":"Granulat"
+},
+{
+	"_id":"7d0b0dd0-325b-4d7c-be0c-b9acfaa8895e",
+	"name":"Pulver"
+},
+{
+	"_id":"b4ad5763-63e1-4d31-b3a9-53c9fdabc33c",
+	"name":"Brausetabletten"
+},
+{
+	"_id":"5b3be7a4-404a-4e06-8443-d411e634ec4b",
+	"name":"Filmtabletten"
+},
+{
+	"_id":"5c0ec566-db69-431b-b6cb-61ec7ef3f556",
+	"name":"Retardtabletten"
+},
+{
+	"_id":"62586bc1-48be-4b3b-a493-bc175671b075",
+	"name":"Tabletten"
+},
+{
+	"_id":"b5fe92ef-19aa-4689-87a3-e12c5816f479",
+	"name":"Kapseln"
+},
+{
+	"_id":"b8c2e649-ccf0-48f7-bb31-eefec3d497b7",
+	"name":"Injektionsflüssigkeit"
+},
+{
+	"_id":"39555490-8bc1-49f7-8971-6a472cd39c8a",
+	"name":"Kautabletten"
+},
+{
+	"_id":"afe84e8a-accd-41ab-ba54-e8472efd98d3",
+	"name":"Zapfen"
+},
+{
+	"_id":"fc4dc62c-e25b-4f61-a7bf-a5e19d70fd23",
+	"name":"Salbe"
+},
+{
+	"_id":"d037ac07-bca2-46a9-aac2-29e8e658c7ec",
+	"name":"Tropfen"
+},
+{
+	"_id":"15c1b332-013e-4086-8235-e7c8b62a09c8",
+	"name":"Creme"
+},
+{
+	"_id":"5b5a14f3-26ba-4a76-a3e5-5322b0c9fe60",
+	"name":"Weichkapsel"
+},
+{
+	"_id":"45161f3d-4357-4d1b-85f1-4e9be390c895",
+	"name":"Hartkapsel"
+},
+{
+	"_id":"609d3be3-2050-486a-a9f0-997dfabfc486",
+	"name":"Dosis"
+},
+{
+	"_id":"969bd9f5-e172-4aa1-874f-0d2efa3a2626",
+	"name":"Spray"
+},
+{
+	"_id":"cbbcfb28-cf17-4d07-8b47-89102f904c83",
+	"name":"Beutel"
+},
+{
+	"_id":"4c3dfc12-f733-4a40-a97b-eefbc809919f",
+	"name":"Dragee"
+}]

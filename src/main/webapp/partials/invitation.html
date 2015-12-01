@@ -1,0 +1,62 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<ol class="breadcrumb">
+  <li><a href="/Behandlungen">Start</a></li>
+  <li class="active">Einladungen {{userLogged.name}}</li>
+</ol>
+
+<div>Laden Sie Freunde und Bekannte ein, KURAVIS auszuprobieren. Einfach E-Mail Adresse(n) eingeben, "Senden" klicken, fertig.<br><br>Ihre Freunde und Bekannte erhalten dann eine Einladungsmail mit personalisiertem Zugangslink. 
+F&uuml;r jede Bewertung die Sie abgeben, k&ouml;nnen Sie eine Einladung versenden. Die Einladung wird anonym versendet. Bitte informieren Sie den Empf&auml;nger vorg&auml;ngig &uuml;ber einen alternativen Kommunikationskanal, dass
+die Einladung durch Sie initiert wurde.</div> 
+<br>
+
+<table>
+	<tr align="left">
+		<td><div class="invitationText">Einladungen</div></td>
+		<td style="width:10px;"></td>
+ 		<td class="verticalAlignMiddle" ng-show="isAdminLogged == false"> <invitation-count value="{{invitationsCount}}"></invitation-count></td>
+	</tr>
+</table>
+<div ng-hide="$root.userLogged!=null">
+	<div class="text-center">
+		<br>
+		<h2>Bitte anmelden</h2>
+	</div>
+</div>
+<table width="100%" style="margin-top:10px">
+	<tr>
+		<td><input type="email" class="form-control" ng-disabled="((invitationsCount <= 0) && (isAdminLogged == false))" ng-model="invitationEmail" placeholder="E-mail"/></td>
+	</tr>
+	<tr ng-show="((invitationsCount == 0) && (admin == false))">
+		<td>Sie haben keine Einladungen verf&uuml;gbar. Sie m&uuml;ssen zuerst eine <a href="/Nutzenbewertung">Bewertung</a> vornehmen.</td>
+	</tr>
+	<tr>
+		<td><button ng-disabled="((invitationsCount <= 0) && (isAdminLogged == false))" class="btn btn-default pull-right" ng-disabled="!invitationEmail" ng-click="sendInvitation()">Senden</button></td>
+	</tr>
+</table>
+<br>
+<div class="section" ng-show="unreadNotifications!== 0">
+	<div class="sectiontitle">Einladungsverlauf</div>
+	<table width="100%" border="0">
+		<tr data-ng-repeat="emailObject in invitations track by emailObject._id" >
+			<td style="width:20%">Gesandt an</td>
+			<td style="width:60%">{{emailObject.email}}</td>
+			<td style="width:20%"><button class="btn btn-default pull-right noPaddingRight" ng-click="resendInvitation(emailObject.email)">Erneut senden</button></td></td>
+		</tr>
+	</table>
+</div>

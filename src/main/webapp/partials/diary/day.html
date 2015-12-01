@@ -1,0 +1,187 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<br>
+<div class="row">
+	<div class="col-md-12 diaryEventEndBlack"></div>
+</div>
+
+<% if(events.length == 0){ %>
+<div class="col-md-12">
+	<div class="event-subtitle" style="margin-bottom: 20px;">Kein Eintrag vorhanden</div>
+</div>
+<% } %>
+
+<% _.each(events, function(event){ %>
+	<% if(event['eventType'] == 'REVIEW'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<a href="/Bewertung/<%= event.reviewId %>" target="_blank">
+					<div class="col-md-11">
+						<div class="event-icon event-icon-REVIEW"></div>
+						<div class="event-title">Bewertung <%= event.disease.name %> - <%= event.treatment.name %> Benotung: <%=event.ratingString %></div>
+					</div>
+					<div class="col-md-1 event-time"><%= event.start_hour %> Uhr</div>
+				</a>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+		
+	<% } %>
+	
+	<% if(event['eventType'] == 'NOTE'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="event-icon event-icon-NOTE"></div>
+					<div class="event-title">Tagebuch <%= event.title %></div>
+				</div>
+				<div class="col-md-7">
+					<div class="event-subtitle textPre" style="margin-top: 2px;"><%= event.text %></div>
+				</div>
+				<div class="col-md-2">
+					<div class="event-time" ><%= event.start_hour %> Uhr</div>
+					<div style="height: 100%"></div>
+					<% if(document.isDiaryEditable){ %>
+					<div>
+						<a class="btn btn-xs pull-right noPaddingRight" style="cursor: pointer; margin-top: 4px;" onclick="deleteEvent('<%= event._id %>')">Löschen</a>
+						<a class="btn btn-xs pull-right" style="cursor: pointer; margin-top: 4px;" onclick="toEditEvent('<%= event.eventType %>', '<%= event._id %>')">Ändern</a>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'REVIEW_VOTE'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<a href="/<%= event.disease.name %>/<%= event.treatment.name %>/<%= event.reviewId %>/Avis" target="_blank">
+					<div class="col-md-11">
+						<div class="event-icon event-icon-REVIEW_VOTE">
+							<img src="/assets/images/vvis.png">
+						</div>
+						<div class="event-title">Avis <%= event.author.name %>'s review <%= event.disease.name %>-<%= event.treatment.name %></div>
+						
+					</div>
+					<div class="col-md-1 event-time"><%= event.start_hour %> Uhr</div>
+				</a>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	
+	<% if(event['eventType'] == 'DISEASE'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<div class="col-md-3">Disease</div>
+				<div class="col-md-8">{{event.text}}</div>
+				<div class="col-md-1 event-time"><%= event.start_hour %> Uhr</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'TREATMENT'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<a href="/<%= event.disease.name %>/<%= event.treatment.name %>/<%= event.reviewId %>" target="_blank">
+					<div class="col-md-3">
+						<div class="event-icon event-icon-TREATMENT-disease"></div>
+						<div class="event-title"><%= event.disease.name %></div>
+					</div>
+					<div class="col-md-7">
+						<div class="event-icon event-icon-TREATMENT"></div>
+						<div class="event-treatment-detail">
+							<div class="event-title"><%= event.treatment.name %></div>
+							<% if(event.category == 'PRESCRIPTION_MEDICINE' || event.category == 'NON_PRESCRIPTION_MEDICINE' || event.category == 'HOMEOPATHY' || event.category == 'FOOD_SUPPLEMENTS' || event.category == 'COMPLEMENTARY_MEDICINE' || event.category == 'ALTERNATIVE_MEDICINE'){ %>
+								<div class="event-title">Häufigkeit: <%= event.frequencyString %></div>
+								<div class="event-title">Menge: <%= event.quantity%> <%= event.type.name%></div>
+								<div class="event-title">Dosis: <%= event.dose %> <%= event.unit.name%></div>
+								
+							<% } %>
+							<% if(event.category == 'PHYSIOTHERAPY' || event.category == 'PSYCHOTHERAPY'){ %>
+								<div class="event-title"><%= event.categoryString %></div>
+								<div class="event-title">Häufigkeit: <%= event.frequencyString %></div>
+								<!--<div class="event-title">Menge: <%= event.quantity%></div> -->
+								<div class="event-title">Dauer: <%= event.duration%> <%= event.unit.name%></div>
+							<% } %>
+							<% if(event.category == 'OTHERS' && event.text != undefined){ %>
+								<div class="event-title"><%= event.text %></div>
+							<% } %>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="event-time" ><%= event.start_hour %> Uhr</div>
+						<div style="height: 100%"></div>
+						<% if(document.isDiaryEditable){ %>
+						<div>
+							<a class="btn btn-xs pull-right noPaddingRight" style="cursor: pointer; margin-top: 4px;" onclick="deleteEvent('<%= event._id %>')">Löschen</a>
+							<a class="btn btn-xs pull-right" style="cursor: pointer; margin-top: 4px;" onclick="toEditEvent('<%= event.eventType %>', '<%= event._id %>')">Ändern</a>
+						</div>
+						<% } %>
+					</div>
+					
+				</a>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+	<% } %>
+	
+	<% if(event['eventType'] == 'WEIGHT'){ %>
+		<div class="diaryEvent">
+			<div class="row">
+				<div class="col-md-10">
+					<div class="event-icon event-icon-WEIGHT"></div>
+					<div class="event-title">Gewicht <%= event.weight %>kg</div>
+				</div>
+				<div class="col-md-2">
+					<div class="event-time" ><%= event.start_hour %> Uhr</div>
+					<div style="height: 100%"></div>
+					<% if(document.isDiaryEditable){ %>
+					<div>
+						<a class="btn btn-xs pull-right noPaddingRight" style="cursor: pointer; margin-top: 4px;" onclick="deleteEvent('<%= event._id %>')">Löschen</a>
+						<a class="btn btn-xs pull-right" style="cursor: pointer; margin-top: 4px;" onclick="toEditEvent('<%= event.eventType %>', '<%= event._id %>')">Ändern</a>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 diaryEventEnd"></div>
+			</div>
+		</div>
+	<% } %>
+	
+<% }); %>
+<br>
+
+<button class="btn btn-xs btn-inactive btn-icon-chevron-left calendar-subtitle" onclick="changeView('year')"><%= cal.options.position.start.getFullYear() %></button>
+<button class="btn btn-xs btn-inactive btn-icon-chevron-left calendar-subtitle" onclick="changeView('month')"><%= cal.getFullMonth() %></button>
+<br>
+ 

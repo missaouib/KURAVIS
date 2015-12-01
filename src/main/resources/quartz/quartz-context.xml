@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+	<bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobFactory">
+			<bean class="org.springframework.scheduling.quartz.SpringBeanJobFactory" />
+		</property>
+		<property name="configLocation" value="classpath:quartz/quartz.properties" />
+		<property name="waitForJobsToCompleteOnShutdown" value="true" />
+		<property name="applicationContextSchedulerContextKey">
+        	<value>applicationContext</value>
+        </property>
+		
+		<property name="triggers">
+	        <list>
+	            <ref bean="newsletterCronTrigger" />
+	            <ref bean="weeklyUpdatesCronTrigger" />
+	        </list>
+    	</property>
+	</bean>
+		
+	<bean name="newsletterServiceJob" class="com.mobileman.kuravis.core.util.spring.JobDetailFactoryBean">
+		<property name="jobClass" value="com.mobileman.kuravis.core.services.messaging.news_announcements.impl.NewsAndAnnouncementsServiceImpl" />
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="false" /> 
+	</bean>
+	
+	<bean name="weeklyUpdatesServiceJob" class="com.mobileman.kuravis.core.util.spring.JobDetailFactoryBean">
+		<property name="jobClass" value="com.mobileman.kuravis.core.services.messaging.weekly_updates.impl.WeeklyUpdatesServiceImpl" />
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="false" /> 
+	</bean>
+	
+	<bean id="newsletterCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="newsletterServiceJob" />
+	    <!-- run every MONDAY at 00:00 AM -->
+	    <property name="cronExpression" value="0 0 0 ? * MON" />
+	</bean>
+	
+	<bean id="weeklyUpdatesCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="weeklyUpdatesServiceJob" />
+	    <!-- run every MONDAY at 00:00 AM -->
+	    <property name="cronExpression" value="0 0 0 ? * MON" />
+	</bean>
+	
+	<!-- 
+	<task:scheduled-tasks>
+        <task:scheduled ref="weeklyUpdatesService" method="process" cron="0 0 0 * * MON"></task:scheduled>
+    </task:scheduled-tasks>
+    
+    
+    <task:scheduled-tasks>
+        <task:scheduled ref="newsletterService" method="process" cron="0 0 0 * * MON"></task:scheduled>
+    </task:scheduled-tasks>
+     -->
+
+</beans>

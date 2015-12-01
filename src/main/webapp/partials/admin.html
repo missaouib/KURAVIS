@@ -1,0 +1,77 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+
+
+<div style="padding: 10px;">
+	<alert ng-cloak class="ng-cloak, alerts" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+	<div ng-hide="userLogged.roles[0] == 'admin'">Not logged as admin</div>
+	<div ng-show="userLogged.roles[0] == 'admin'">
+		<div style="margin: top:   20px;">
+			<h1>Admin</h1>
+		</div>
+
+		<span ng-repeat="t in tabs"> <a class="btn" ng-class="$index==tab?'btn':'btn btn-primary'" href="/admin/{{$index}}">{{t.name}}</a>
+		</span>
+
+		<div ng-show="tabs[tab].add" style="margin-top: 10px; margin-bottom: 10px;">
+
+			<label ng-show="tabs[tab].optionTypes">Option List Type:</label> <select ng-model="listType" ng-show="tabs[tab].optionTypes" style="margin-right: 20px;">
+				<option ng-repeat="obj in optionTypes" value="{{optionTypeValue(obj)}}">{{optionTypeName(obj)}}</option>
+			</select> <label>Name:</label><input type="text" ng-model="name" />
+			<button class="btn" ng-click="addNew()">Add new</button>
+		</div>
+		<div ng-show="tabs[tab].inv" style="margin-top: 10px; margin-bottom: 10px;">
+			<label>E-mail</label><input type="text" ng-model="email" />
+			<button class="btn" ng-click="sendInvitation()">Send invitation</button>
+		</div>
+
+		
+	
+		<div class="gridStyle" style="min-height: 90%" ng-grid="gridOptions"></div>
+	</div>
+
+</div>
+
+
+<div modal="editSuggestions" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="title">
+					Edit suggestions
+				</div>
+				
+			<div ng-show1111="editSuggestions" style="border: 1px solid #888; padding: 5px;">
+			<table>
+				<tr ng-repeat="treatment in editSuggestions.suggestedTreatments">
+					<td>{{treatment.name}}</td>
+					<td><button ng-click="removeSuggestion(editSuggestions, $index, treatment.treatmentReviewSummaryId)">Remove</button></td>
+				</tr>
+			</table>
+			<table><tr><td><angucomplete id="st1" placeholder="Search treatments" pause="100" selectedobject="selectedTreatment" localdata="allTreatments"
+				searchfields="name" titlefield="name" minlength="1" inputclass="form-control form-control-small" /></td>
+				<td><button ng-click="addSuggestion(editSuggestions)">Add suggestion</button></td></tr></table>
+			<button ng-click="editSuggestions=null">Close</button>
+		</div>
+		
+					</div>
+		</div>
+	</div>
+</div>
+	
+				

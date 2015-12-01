@@ -1,0 +1,71 @@
+<!--
+  Copyright 2015 MobileMan GmbH
+  www.mobileman.com
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+	<mongo:mongo host="${mongo.host}" port="${mongo.port}" />
+	
+	<mongo:db-factory dbname="${mongo.dbname}" host="${mongo.host}"/>
+	
+	<!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	
+	<mongo:repositories base-package="com.mobileman.kuravis.core.dao" />
+	
+	<bean id="mappingContext" class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+ 
+	<bean id="defaultMongoTypeMapper" class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+		<constructor-arg name="typeKey"><null/></constructor-arg>
+	</bean>
+	
+	<bean id="conversionService"
+	      class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.mobileman.kuravis.core.util.mongo.converter.EnumToStringConverterFactory"/>
+				<bean class="com.mobileman.kuravis.core.util.mongo.converter.StringToEnumConverterFactory"/>
+	        </list>
+	    </property>
+	</bean>
+	
+	<mongo:mapping-converter type-mapper-ref="defaultMongoTypeMapper" db-factory-ref="mongoDbFactory" mapping-context-ref="mappingContext" >
+		<!--  
+  		<mongo:custom-converters>
+    		<mongo:converter>
+      			<bean class="com.mobileman.kuravis.core.util.mongo.converter.EnumToStringConverter"/>
+    		</mongo:converter>
+    		<mongo:converter>
+				<bean class="com.mobileman.kuravis.core.util.mongo.converter.StringToEnumConverter"/>
+    		</mongo:converter>
+  		</mongo:custom-converters>
+  		-->
+	</mongo:mapping-converter>
+	
+	 
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+		<constructor-arg name="mongoConverter" ref="mappingConverter" />
+		<property name="writeResultChecking" value="EXCEPTION" />
+		<property name="writeConcern" value="NORMAL"/>
+	</bean>	
+
+</beans>
