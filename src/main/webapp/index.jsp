@@ -88,16 +88,7 @@ div {
 <!--[if lt IE 9]>
       <script src="bootstrap/js/html5shiv.js"></script>
     <![endif]-->
-    
-<script type="text/javascript"> 
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ 
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), 
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) 
-})(window,document,'script','//www.google-analytics.com/analytics.js&#39;,&#39;ga&#39;); 
 
-ga('create', 'UA-43124158-1', 'kuravis.de'); 
-ga('send', 'pageview'); 
-</script>    
 </head>
 
 <body lang="en" data-status="{{workStatus}}">
@@ -280,7 +271,7 @@ ga('send', 'pageview');
 			<div class="modal-body">
 				<div class="title">Feedback</div>
 				<div class="text-info" ng-hide="feedbackSent">
-						Helfen Sie uns, KURAVIS zu verbessern. Für Ihr Feedback danken wir im Voraus bestens.
+						Helfen Sie uns, KURAVIS zu verbessern. Fï¿½r Ihr Feedback danken wir im Voraus bestens.
 				</div>
 				<div class="text-success" ng-show="feedbackSent">
 					Herzlichen Dank f&uuml;r Ihr Feedback!
@@ -319,7 +310,7 @@ ga('send', 'pageview');
 					<div ng-hide="signUpSubmited" class="controls">
 						<div class="text-danger" ng-show="submitted && myForm.signUpName.$error.required">Pflichtfeld</div>
 						<input class="signInput" type="text" required class="input-text background-color" ng-model="signUpName" name="signUpName" placeholder="Nutzername"> 
-						<span class="text-danger" ng-show="submitted && myForm.signUpEmail.$error.email">Email ist nicht gültig!</span>
+						<span class="text-danger" ng-show="submitted && myForm.signUpEmail.$error.email">Email ist nicht gï¿½ltig!</span>
 						<span class="text-danger" ng-show="submitted && myForm.signUpEmail.$error.required">Pflichtfeld</span>
 						<input class="signInput" type="email" required class="input-text background-color" ng-model="signUpEmail" name="signUpEmail" placeholder="E-Mail">
 						<div ng-show="pwdsubmitted && signUpPassword2!=null && signUpPassword!=signUpPassword2" class="text-danger"">

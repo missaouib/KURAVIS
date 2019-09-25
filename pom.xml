@@ -382,7 +382,7 @@
 		</dependency>
 		<dependency>
 			<groupId>nl.captcha</groupId>
-			<artifactId>simpleCaptcha</artifactId>
+			<artifactId>simplecaptcha</artifactId>
 			<version>1.2.1</version>
 		</dependency>
 	    <dependency>
@@ -422,6 +422,14 @@
 			<id>org.jboss.repository.release</id>
 			<name>JBoss Maven Release Repository</name>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>enonic</id>
+			<name>enonic</name>
+			<url>https://repo.enonic.com/public</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>

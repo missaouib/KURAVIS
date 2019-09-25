@@ -60,7 +60,9 @@ angular.module(appName).controller('SessionCtrl',['$scope','$rootScope','User', 
 	
 	$rootScope.$on('$viewContentLoaded', function () {
 		//Google Analytics
-		$window._gaq.push(['_trackPageview', $location.path()]);
+		if ($window._gaq) {
+			$window._gaq.push(['_trackPageview', $location.path()]);
+		}
 		
 		checkWindowContent();
 		if(!isStartPage()){

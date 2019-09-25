@@ -24,7 +24,7 @@
 
 	<mongo:mongo host="${mongo.host}" port="${mongo.port}" />
 	
-	<mongo:db-factory dbname="${mongo.dbname}" host="${mongo.host}"/>
+	<mongo:db-factory dbname="${mongo.dbname}" host="${mongo.host}" port="${mongo.port}"/>
 	
 	<!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
